@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "gratidude_3",
-    "slug": "gratidude_3",
+    "name": "gratidude",
+    "slug": "gratidude",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
