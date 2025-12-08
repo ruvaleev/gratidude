@@ -1,6 +1,6 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
 import * as Localization from 'expo-localization';
+import { default as i18nInstance } from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
 import en from './locales/en.json';
 import ru from './locales/ru.json';
@@ -13,7 +13,7 @@ const resources = {
 // Get device locale and extract language code (e.g., "en-US" -> "en")
 const deviceLanguage = Localization.getLocales()[0]?.languageCode || 'en';
 
-i18n
+i18nInstance
   .use(initReactI18next)
   .init({
     compatibilityJSON: 'v3',
@@ -25,5 +25,5 @@ i18n
     },
   });
 
-export default i18n;
+export default i18nInstance;
 

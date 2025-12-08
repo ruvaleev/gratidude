@@ -16,5 +16,5 @@ jobs:
           node-version: 20
       - run: yarn install
       - name: Run ESLint
-        run: yarn lint
+        run: yarn lint .
       

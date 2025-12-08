@@ -8,7 +8,7 @@ describe('Index Screen', () => {
     render(<Index />);
     
     const text = screen.getByText(i18n.t('index.editInstruction'));
-    expect(text).toBeTruthy();
+    expect(text).toBeTruthy()
   });
 });
 
