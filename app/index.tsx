@@ -2,24 +2,30 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import "../i18n";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { addGratitude } from "../store/slices/gratitudesSlice";
+import { addPraise } from "../store/slices/praisesSlice";
 
 export default function Index() {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  
+  const gratitudes = useAppSelector((state) => state.gratitudes.items);
+  const praises = useAppSelector((state) => state.praises.items);
+  
   const [gratitudeText, setGratitudeText] = useState("");
-  const [gratitudes, setGratitudes] = useState<string[]>([]);
   const [praiseText, setPraiseText] = useState("");
-  const [praises, setPraises] = useState<string[]>([]);
 
   const handleGratitudeSubmit = () => {
     if (gratitudeText.trim()) {
-      setGratitudes([...gratitudes, gratitudeText]);
+      dispatch(addGratitude(gratitudeText));
       setGratitudeText("");
     }
   };
 
   const handlePraiseSubmit = () => {
     if (praiseText.trim()) {
-      setPraises([...praises, praiseText]);
+      dispatch(addPraise(praiseText));
       setPraiseText("");
     }
   };

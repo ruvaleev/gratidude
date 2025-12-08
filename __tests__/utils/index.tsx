@@ -1,0 +1,40 @@
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { render, RenderOptions } from '@testing-library/react-native';
+import React, { ReactElement } from 'react';
+import { Provider } from 'react-redux';
+import gratitudesReducer from '../../store/slices/gratitudesSlice';
+import praisesReducer from '../../store/slices/praisesSlice';
+
+const rootReducer = combineReducers({
+  gratitudes: gratitudesReducer,
+  praises: praisesReducer,
+});
+
+export type RootState = ReturnType<typeof rootReducer>;
+
+interface ExtendedRenderOptions extends Omit<RenderOptions, 'wrapper'> {
+  preloadedState?: Partial<RootState>;
+  store?: ReturnType<typeof createStore>;
+}
+
+export function createStore(preloadedState?: Partial<RootState>) {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+  });
+}
+
+export function renderWithProviders(
+  ui: ReactElement,
+  {
+    preloadedState,
+    store = createStore(preloadedState),
+    ...renderOptions
+  }: ExtendedRenderOptions = {}
+) {
+  function Wrapper({ children }: { children: React.ReactNode }) {
+    return <Provider store={store}>{children}</Provider>;
+  }
+
+  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
+}
