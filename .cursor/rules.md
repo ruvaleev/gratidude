@@ -8,20 +8,11 @@
 - For linting use eslint
 - Expo config (`app.config.js`) switches names, bundle IDs, Google-services files and schemes via `APP_VARIANT`. Custom plugin `plugins/withLaunchMode.js` tweaks Android intent filters.
 - `jsconfig.json` defines absolute aliases (`__components`, `__redux`, `__services`, etc.). No relative spaghetti.
-- Environment flags live in `src/config/env.json`. Extend this file when new remote toggles are needed.
 - Fonts, icons, localization, navigation and analytics are initialized inside `App.jsx`. Any global listener (NetInfo, notifications, tutorial hydration, Update checks) is wired once at the top level.
 
 ## 2. Architectural Principles
 
-- **Feature organization:**  
-  - `src/components` = reusable atoms/molecules.  
-  - `src/containers` = screens composing components + hooks + navigation.  
-  - `src/redux` = slices/thunks/middlewares/selectors; normalized state only.  
-  - `src/services` = API clients/integrations (axios instance only here).  
-  - `src/helpers|functions|hooks` = pure utilities; keep side effects out.
-- **Styling:** `src/styles` exposes tokens (`Colors`, `Size`, `Text`, `Shadows`). Prefer referencing these tokens over inline literals for consistency.
-- **Internationalization:** `src/i18n` with react-i18next. `useLocale` hook listens to `signIn.user.locale` and updates i18n automatically.
-- **Analytics & notifications:** `src/services/analyticsService.js` (Firebase) logs every event in console + remote. `src/services/notificationsService.js` manages Expo push permissions, listeners and schedulers. Keep side effects there.
+- **Internationalization:** `i18n` with react-i18next. `useLocale` hook listens to `signIn.user.locale` and updates i18n automatically.
 
 ## 3. State Management (Redux Toolkit)
 
@@ -30,7 +21,7 @@
   - `isLoading/isErrored/errors` flags to surface UI states.  
   - extraReducers respond to RTK thunks only; keep reducers pure.
 - **Pending/offline:** `pendingImages`, `pendingFoods`, `pendingDiariesFoods` keep offline items; IDs may start with `temporaryDiaryId(date)`. `initializePendingRequestsObserver` (NetInfo listener) flushes queues once back online.
-- **Timers:** `src/components/TimersController.jsx` + `timers` slice orchestrate scheduled callbacks (e.g., delayed `logFoodAsync`). Never call `setTimeout` directly in UI—dispatch timer actions instead so they survive reloads.
+- **Timers:** `components/TimersController.jsx` + `timers` slice orchestrate scheduled callbacks (e.g., delayed `logFoodAsync`). Never call `setTimeout` directly in UI—dispatch timer actions instead so they survive reloads.
 - **Middlewares:**  
   - `errorsMiddleware`: logs out on `"unauthorized"` and redirects to paywall on `"subscription_required"`.  
   - `subscriptionsMiddleware`: after a successful RevenueCat purchase, replays failed diary foods with that error code.  
@@ -39,14 +30,14 @@
 
 ## 4. API Layer & Networking
 
-- **Axios wrapper (`src/extra/axios.js`):**  
+- **Axios wrapper (`extra/axios.js`):**  
   - Sets JSON headers, base URL from env, rejects statuses ≥400.  
   - Injects `Authorization: bearer <token>` except `/omniauth`.  
   - Deduplicates inflight requests via `pendingRequests` map.  
   - Adds NetInfo gate: offline requests reject with synthetic `ERR_NETWORK`.
-- **Services (`src/services/*.js`):** thin wrappers around `request` for each domain (diaries, foods, images, users, purchases...). They always resolve with `response` or reject with parsed backend error.
+- **Services (`services/*.js`):** thin wrappers around `request` for each domain (diaries, foods, images, users, purchases...). They always resolve with `response` or reject with parsed backend error.
 - **Error shape:** `NewErrorsHandler` collapses API responses into `Error(JSON.stringify([...]))`. Thunks `throw` this, and slices parse it back to show UI errors.
-- **Async thunks:** live in `src/redux/thunks`. They handle side effects + normalization (e.g., `findOrCreateDiary`, `logFoodAsync`, `uploadImageAsync`, `purchasePackage`). Never fetch inside components; always go through thunks.
+- **Async thunks:** live in `redux/thunks`. They handle side effects + normalization (e.g., `findOrCreateDiary`, `logFoodAsync`, `uploadImageAsync`, `purchasePackage`). Never fetch inside components; always go through thunks.
 - **Offline safety:**  
   - Use helper `temporaryDiaryId` before real diary exists.  
   - After server sync, thunks replace temp IDs across slices/forms/pending queues.  
@@ -69,15 +60,15 @@
 
 ## 6. Patterns to Follow
 
-- Normalize everything (`byId` + arrays) and keep derived data in selectors under `src/redux/selectors`.
+- Normalize everything (`byId` + arrays) and keep derived data in selectors under `redux/selectors`.
 - Drive all side effects through thunks or services; UI components stay declarative.
-- Persist user-facing forms separately (`src/redux/slices/*Form`) so they can survive navigation and offline mode.
+- Persist user-facing forms separately (`redux/slices/*Form`) so they can survive navigation and offline mode.
 - Use global helpers (`__helpers/asyncStorageFunctions`, `__hooks/useLocale`, `__hooks/useCopilotEvents`) instead of reimplementing AsyncStorage access or Copilot logic.
 - When adding timers, register them through `timers` slice + `TimersController`.
 - When integrating a new API:
-  1. Add request function in `src/services`.  
+  1. Add request function in `services`.  
   2. Wrap it with `NewErrorsHandler`.  
-  3. Create thunk in `src/redux/thunks`.  
+  3. Create thunk in `redux/thunks`.  
   4. Handle states in relevant slice + tests using mocked axios fixture.
 - Purchases: always go through `purchasePackage` thunk (configures RevenueCat with Expo `Constants.expoConfig.extra.revenueCatApiKey`, logs analytics event, returns normalized subscription list).
 - using internationalization i18n with three languages - en, ru, th.
@@ -85,7 +76,7 @@
 
 ## 7. Things to Avoid
 
-- Direct `axios`/`fetch` usage outside `src/services` (breaks auth, dedupe, offline guard, error format).
+- Direct `axios`/`fetch` usage outside `services` (breaks auth, dedupe, offline guard, error format).
 - Mutating redux state outside slices, or storing non-serializable data (DOM nodes, promises). If unavoidable (timers), keep them in dedicated slices with middleware to clean up.
 - Adding global listeners anywhere except `App.jsx`.
 - Skipping tests for new thunks/services; shared axios mocks make backend-free testing easy.
