@@ -15,10 +15,21 @@ import dateReducer from './slices/dateSlice';
 import gratitudesReducer from './slices/gratitudesSlice';
 import praisesReducer from './slices/praisesSlice';
 
+const DATA_VERSION = 1;
+
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  version: DATA_VERSION,
   whitelist: ['gratitudes', 'praises', 'date'],
+  migrate: (state: any, currentVersion: number) => {
+    if (state && state._persist && state._persist.version === currentVersion) {
+      // return current state if version is actual
+      return Promise.resolve(state);
+    }
+    // clear state if version is outdated; if necessary, can implement migrations here
+    return Promise.resolve(undefined);
+  },
 };
 
 export const rootReducer = combineReducers({
@@ -28,19 +39,6 @@ export const rootReducer = combineReducers({
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-// export const setupStore = (preloadedState?: Partial<RootState>) => {
-//   return configureStore({
-//     reducer: persistedReducer,
-//     preloadedState,
-//     middleware: (getDefaultMiddleware) =>
-//       getDefaultMiddleware({
-//         serializableCheck: {
-//           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-//         },
-//       }),
-//   });
-// };
 
 export const store = configureStore({
   reducer: persistedReducer,

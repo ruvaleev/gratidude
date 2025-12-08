@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import moment from 'moment';
+import { DATE_FORMAT } from '../../constants';
 
 interface DateState {
-  selectedDate: string; // ISO string format
+  selectedDate: string;
 }
 
 const initialState: DateState = {
-  selectedDate: new Date().toISOString(),
+  selectedDate: moment().format(DATE_FORMAT),
 };
 
 const dateSlice = createSlice({

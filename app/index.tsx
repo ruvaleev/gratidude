@@ -1,9 +1,13 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { DATE_FORMAT } from "../constants";
 import "../i18n";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
+import selectGratitudesByDate from "../store/selectors/selectGratitudesByDate";
+import selectPraisesByDate from "../store/selectors/selectPraisesByDate";
 import { setSelectedDate } from "../store/slices/dateSlice";
 import { addGratitude } from "../store/slices/gratitudesSlice";
 import { addPraise } from "../store/slices/praisesSlice";
@@ -12,57 +16,52 @@ export default function Index() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   
-  const gratitudes = useAppSelector((state) => state.gratitudes.items);
-  const praises = useAppSelector((state) => state.praises.items);
-  const selectedDateISO = useAppSelector((state) => state.date.selectedDate);
+  const currentSelectedDate = useAppSelector((state) => state.date.selectedDate);
+  const gratitudes = useAppSelector((state) => selectGratitudesByDate(state, currentSelectedDate));
+  const praises = useAppSelector((state) => selectPraisesByDate(state, currentSelectedDate));
   
   const [gratitudeText, setGratitudeText] = useState("");
   const [praiseText, setPraiseText] = useState("");
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
-  const [tempDate, setTempDate] = useState(new Date(selectedDateISO));
 
   const handleGratitudeSubmit = () => {
     if (gratitudeText.trim()) {
-      dispatch(addGratitude(gratitudeText));
+      dispatch(addGratitude({ date: currentSelectedDate, text: gratitudeText }));
       setGratitudeText("");
     }
   };
 
   const handlePraiseSubmit = () => {
     if (praiseText.trim()) {
-      dispatch(addPraise(praiseText));
+      dispatch(addPraise({ date: currentSelectedDate, text: praiseText }));
       setPraiseText("");
     }
   };
 
   const handleDatePress = () => {
-    setTempDate(new Date(selectedDateISO));
     setIsDatePickerVisible(true);
   };
 
   const handleDateChange = (event: any, selectedDate?: Date) => {
     if (selectedDate) {
-      setTempDate(selectedDate);
+      const formattedDate = moment(selectedDate, DATE_FORMAT).format(DATE_FORMAT);
+      dispatch(setSelectedDate(formattedDate));
     }
   };
 
   const handleConfirmDate = () => {
-    dispatch(setSelectedDate(tempDate.toISOString()));
     setIsDatePickerVisible(false);
   };
 
   const handleCancelDate = () => {
     setIsDatePickerVisible(false);
   };
-
-  const selectedDate = new Date(selectedDateISO);
-  const formattedDate = selectedDate.toLocaleDateString();
   
   return (
     <View style={styles.container}>
       <Pressable onPress={handleDatePress} style={styles.dateContainer}>
         <Text style={styles.dateText} testID="currentDate">
-          {formattedDate}
+          {currentSelectedDate}
         </Text>
       </Pressable>
 
@@ -78,7 +77,7 @@ export default function Index() {
             
             <View testID="datePicker">
               <DateTimePicker
-                value={tempDate}
+                value={moment(currentSelectedDate, DATE_FORMAT).toDate()}
                 mode="date"
                 display="spinner"
                 onChange={handleDateChange}
@@ -118,7 +117,7 @@ export default function Index() {
       </View>
 
       <View style={styles.gratitudesList} testID="gratitudesList">
-        {gratitudes.map((gratitude, index) => (
+        {gratitudes.map((gratitude: string, index: number) => (
           <Text key={index} style={styles.gratitudeItem}>
             {gratitude}
           </Text>
@@ -138,7 +137,7 @@ export default function Index() {
       </View>
 
       <View style={styles.praisesList} testID="praisesList">
-        {praises.map((praise, index) => (
+        {praises.map((praise: string, index: number) => (
           <Text key={index} style={styles.praiseItem}>
             {praise}
           </Text>

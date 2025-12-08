@@ -29,8 +29,7 @@ export function createStore(preloadedState?: Partial<RootState>) {
 export function renderWithProviders(
   ui: ReactElement,
   {
-    preloadedState,
-    store = createStore(preloadedState),
+    store = createStore(),
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {

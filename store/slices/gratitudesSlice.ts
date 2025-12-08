@@ -1,22 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface GratitudesState {
-  items: string[];
+  items: { [date: string]: string[] };
 }
 
 const initialState: GratitudesState = {
-  items: [],
+  items: {},
 };
 
 const gratitudesSlice = createSlice({
   name: 'gratitudes',
   initialState,
   reducers: {
-    addGratitude: (state, action: PayloadAction<string>) => {
-      state.items.push(action.payload);
+    addGratitude: (state, action: PayloadAction<{ date: string; text: string }>) => {
+      const { date, text } = action.payload;
+      if (!state.items[date]) {
+        state.items[date] = [];
+      }
+      state.items[date].push(text);
     },
     clearGratitudes: (state) => {
-      state.items = [];
+      state.items = {};
     },
   },
 });
