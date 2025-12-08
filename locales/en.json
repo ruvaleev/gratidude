@@ -1,6 +1,7 @@
 {
   "index": {
-    "editInstruction": "Edit app/index.tsx to edit this screen."
+    "gratitudePlaceholder": "What are you grateful for?",
+    "gratitudeSubmitButton": "Add Gratitude"
   }
 }
 
