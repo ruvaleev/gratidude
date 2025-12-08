@@ -56,14 +56,45 @@ export default function Index() {
   const handleCancelDate = () => {
     setIsDatePickerVisible(false);
   };
+
+  const handlePreviousDay = () => {
+    const previousDay = moment(currentSelectedDate, DATE_FORMAT).subtract(1, 'day').format(DATE_FORMAT);
+    dispatch(setSelectedDate(previousDay));
+  };
+
+  const handleNextDay = () => {
+    const nextDay = moment(currentSelectedDate, DATE_FORMAT).add(1, 'day').format(DATE_FORMAT);
+    dispatch(setSelectedDate(nextDay));
+  };
+
+  const isToday = currentSelectedDate === moment().format(DATE_FORMAT);
   
   return (
     <View style={styles.container}>
-      <Pressable onPress={handleDatePress} style={styles.dateContainer}>
-        <Text style={styles.dateText} testID="currentDate">
-          {currentSelectedDate}
-        </Text>
-      </Pressable>
+      <View style={styles.dateNavigationContainer}>
+        <Pressable 
+          onPress={handlePreviousDay} 
+          style={styles.dateNavButton}
+          testID="previousDayButton"
+        >
+          <Text style={styles.dateNavButtonText}>←</Text>
+        </Pressable>
+
+        <Pressable onPress={handleDatePress} style={styles.dateContainer}>
+          <Text style={styles.dateText} testID="currentDate">
+            {currentSelectedDate}
+          </Text>
+        </Pressable>
+
+        <Pressable 
+          onPress={handleNextDay} 
+          style={[styles.dateNavButton, isToday && styles.dateNavButtonDisabled]}
+          disabled={isToday}
+          testID="nextDayButton"
+        >
+          <Text style={[styles.dateNavButtonText, isToday && styles.dateNavButtonTextDisabled]}>→</Text>
+        </Pressable>
+      </View>
 
       <Modal
         visible={isDatePickerVisible}
@@ -153,10 +184,35 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 60,
   },
+  dateNavigationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+    gap: 12,
+  },
+  dateNavButton: {
+    backgroundColor: "#007AFF",
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  dateNavButtonDisabled: {
+    backgroundColor: "#ccc",
+  },
+  dateNavButtonText: {
+    fontSize: 24,
+    color: "white",
+    fontWeight: "600",
+  },
+  dateNavButtonTextDisabled: {
+    color: "#999",
+  },
   dateContainer: {
+    flex: 1,
     alignItems: "center",
     padding: 16,
-    marginBottom: 20,
     backgroundColor: "#f0f0f0",
     borderRadius: 8,
   },

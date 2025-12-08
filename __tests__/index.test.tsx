@@ -58,17 +58,17 @@ describe('Index Screen', () => {
   });
 
   describe('when user has a gratitude or praise in store already', () => {
-    const store = createStore({
-      date: { selectedDate: today },
-      gratitudes: {
-        items: { [today]: [userGratitude] },
-      },
-      praises: {
-        items: { [yesterday]: [userPraise] },
-      },
-    });
-
     it('user can change date and see content according to the selected date', () => {
+      const store = createStore({
+        date: { selectedDate: today },
+        gratitudes: {
+          items: { [today]: [userGratitude] },
+        },
+        praises: {
+          items: { [yesterday]: [userPraise] },
+        },
+      });
+
       const component = renderWithProviders(<Index />, { store });
 
       const currentDateElement = component.getByTestId('currentDate');
@@ -84,25 +84,17 @@ describe('Index Screen', () => {
         within(praisesList).queryByText(userPraise)
       ).toBeNull();
 
-      // Кликаем по дате
       fireEvent.press(currentDateElement);
 
-      // Проверяем, что появился DatePicker
       const datePicker = component.getByTestId('datePicker');
       expect(datePicker).toBeTruthy();
 
-      // Выбираем новую дату (например, вчерашний день)
-      // yesterday.setDate(yesterday.getDate() - 1);
-      
-      // Находим DateTimePicker и вызываем его onChange
       const dateTimePicker = component.UNSAFE_getByType(DateTimePicker);
       fireEvent(dateTimePicker, 'onChange', {}, yesterday);
 
-      // Подтверждаем выбор даты
       const confirmButton = component.getByTestId('confirmDateButton');
       fireEvent.press(confirmButton);
 
-      // Проверяем, что отображается новая дата
       const newDateElement = component.getByTestId('currentDate');
       expect(newDateElement.props.children).toContain(yesterday);
 
@@ -115,6 +107,75 @@ describe('Index Screen', () => {
       expect(
         within(praisesList).queryByText(userPraise)
       ).toBeTruthy();
+    });
+
+    it('user can navigate to previous day using left button', () => {
+      const store = createStore({
+        date: { selectedDate: today },
+        gratitudes: {
+          items: { [today]: [userGratitude] },
+        },
+        praises: {
+          items: { [yesterday]: [userPraise] },
+        },
+      });
+
+      const component = renderWithProviders(<Index />, { store });
+
+      const currentDateElement = component.getByTestId('currentDate');
+      expect(currentDateElement.props.children).toContain(today);
+
+      const previousDayButton = component.getByTestId('previousDayButton');
+      fireEvent.press(previousDayButton);
+
+      expect(currentDateElement.props.children).toContain(yesterday);
+      expect(store.getState().date.selectedDate).toBe(yesterday);
+    });
+
+    it('user can navigate to next day using right button when not on today', () => {
+      const twoDaysAgo = moment().subtract(2, 'days').format(DATE_FORMAT);
+      const storeWithOldDate = createStore({
+        date: { selectedDate: twoDaysAgo },
+        gratitudes: {
+          items: {},
+        },
+        praises: {
+          items: {},
+        },
+      });
+
+      const component = renderWithProviders(<Index />, { store: storeWithOldDate });
+
+      const currentDateElement = component.getByTestId('currentDate');
+      expect(currentDateElement.props.children).toContain(twoDaysAgo);
+
+      const nextDayButton = component.getByTestId('nextDayButton');
+      expect(nextDayButton.props.accessibilityState.disabled).toBe(false);
+      
+      fireEvent.press(nextDayButton);
+
+      expect(currentDateElement.props.children).toContain(yesterday);
+      expect(storeWithOldDate.getState().date.selectedDate).toBe(yesterday);
+    });
+
+    it('right button is disabled when current date is today', () => {
+      const store = createStore({
+        date: { selectedDate: today },
+        gratitudes: {
+          items: { [today]: [userGratitude] },
+        },
+        praises: {
+          items: { [yesterday]: [userPraise] },
+        },
+      });
+
+      const component = renderWithProviders(<Index />, { store });
+
+      const currentDateElement = component.getByTestId('currentDate');
+      expect(currentDateElement.props.children).toContain(today);
+
+      const nextDayButton = component.getByTestId('nextDayButton');
+      expect(nextDayButton.props.accessibilityState.disabled).toBe(true);
     });
   });
 });
