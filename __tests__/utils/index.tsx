@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { render, RenderOptions } from '@testing-library/react-native';
 import React, { ReactElement } from 'react';
+import { Platform } from 'react-native';
 import { Provider } from 'react-redux';
 import dateReducer from '../../store/slices/dateSlice';
 import gratitudesReducer from '../../store/slices/gratitudesSlice';
@@ -39,3 +40,9 @@ export function renderWithProviders(
 
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
+
+export const setPlatform = (platform: string) => (
+  Object.defineProperty(Platform, 'OS', {
+    get: jest.fn(() => platform),
+  })
+);

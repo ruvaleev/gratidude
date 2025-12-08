@@ -2,7 +2,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Modal, Platform, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { DATE_FORMAT } from "../constants";
 import "../i18n";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
@@ -39,6 +39,9 @@ export default function Index() {
   };
 
   const handleDatePress = () => {
+    if (Platform.OS === 'web') {
+      return;
+    }
     setIsDatePickerVisible(true);
   };
 
