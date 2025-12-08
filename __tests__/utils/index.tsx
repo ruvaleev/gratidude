@@ -2,12 +2,14 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { render, RenderOptions } from '@testing-library/react-native';
 import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
+import dateReducer from '../../store/slices/dateSlice';
 import gratitudesReducer from '../../store/slices/gratitudesSlice';
 import praisesReducer from '../../store/slices/praisesSlice';
 
 const rootReducer = combineReducers({
   gratitudes: gratitudesReducer,
   praises: praisesReducer,
+  date: dateReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

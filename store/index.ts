@@ -11,18 +11,20 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 
+import dateReducer from './slices/dateSlice';
 import gratitudesReducer from './slices/gratitudesSlice';
 import praisesReducer from './slices/praisesSlice';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['gratitudes', 'praises'],
+  whitelist: ['gratitudes', 'praises', 'date'],
 };
 
 export const rootReducer = combineReducers({
   gratitudes: gratitudesReducer,
   praises: praisesReducer,
+  date: dateReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
