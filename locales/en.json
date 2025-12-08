@@ -1,7 +1,9 @@
 {
   "index": {
     "gratitudePlaceholder": "What are you grateful for?",
-    "gratitudeSubmitButton": "Add Gratitude"
+    "gratitudeSubmitButton": "Add Gratitude",
+    "praisePlaceholder": "What are you proud of yourself for?",
+    "praiseSubmitButton": "Add Praise"
   }
 }
 

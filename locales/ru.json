@@ -1,7 +1,9 @@
 {
   "index": {
     "gratitudePlaceholder": "За что вы благодарны?",
-    "gratitudeSubmitButton": "Добавить благодарность"
+    "gratitudeSubmitButton": "Добавить благодарность",
+    "praisePlaceholder": "За что вы гордитесь собой?",
+    "praiseSubmitButton": "Добавить похвалу"
   }
 }
 

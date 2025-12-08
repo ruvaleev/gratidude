@@ -7,11 +7,20 @@ export default function Index() {
   const { t } = useTranslation();
   const [gratitudeText, setGratitudeText] = useState("");
   const [gratitudes, setGratitudes] = useState<string[]>([]);
+  const [praiseText, setPraiseText] = useState("");
+  const [praises, setPraises] = useState<string[]>([]);
 
-  const handleSubmit = () => {
+  const handleGratitudeSubmit = () => {
     if (gratitudeText.trim()) {
       setGratitudes([...gratitudes, gratitudeText]);
       setGratitudeText("");
+    }
+  };
+
+  const handlePraiseSubmit = () => {
+    if (praiseText.trim()) {
+      setPraises([...praises, praiseText]);
+      setPraiseText("");
     }
   };
   
@@ -24,7 +33,7 @@ export default function Index() {
           value={gratitudeText}
           onChangeText={setGratitudeText}
         />
-        <Pressable style={styles.button} onPress={handleSubmit}>
+        <Pressable style={styles.button} onPress={handleGratitudeSubmit}>
           <Text style={styles.buttonText}>{t("index.gratitudeSubmitButton")}</Text>
         </Pressable>
       </View>
@@ -33,6 +42,26 @@ export default function Index() {
         {gratitudes.map((gratitude, index) => (
           <Text key={index} style={styles.gratitudeItem}>
             {gratitude}
+          </Text>
+        ))}
+      </View>
+
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder={t("index.praisePlaceholder")}
+          value={praiseText}
+          onChangeText={setPraiseText}
+        />
+        <Pressable style={[styles.button, styles.praiseButton]} onPress={handlePraiseSubmit}>
+          <Text style={styles.buttonText}>{t("index.praiseSubmitButton")}</Text>
+        </Pressable>
+      </View>
+
+      <View style={styles.praisesList} testID="praisesList">
+        {praises.map((praise, index) => (
+          <Text key={index} style={styles.praiseItem}>
+            {praise}
           </Text>
         ))}
       </View>
@@ -63,19 +92,32 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: "center",
   },
+  praiseButton: {
+    backgroundColor: "#34C759",
+  },
   buttonText: {
     color: "white",
     fontSize: 16,
     fontWeight: "600",
   },
   gratitudesList: {
-    flex: 1,
+    marginBottom: 20,
   },
   gratitudeItem: {
     fontSize: 16,
     padding: 12,
     marginBottom: 8,
     backgroundColor: "#f5f5f5",
+    borderRadius: 8,
+  },
+  praisesList: {
+    marginBottom: 20,
+  },
+  praiseItem: {
+    fontSize: 16,
+    padding: 12,
+    marginBottom: 8,
+    backgroundColor: "#e8f5e9",
     borderRadius: 8,
   },
 });
