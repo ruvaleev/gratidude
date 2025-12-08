@@ -1,6 +1,10 @@
 import { Text, View } from "react-native";
+import { useTranslation } from "react-i18next";
+import "../i18n";
 
 export default function Index() {
+  const { t } = useTranslation();
+  
   return (
     <View
       style={{
@@ -9,7 +13,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      <Text>{t("index.editInstruction")}</Text>
     </View>
   );
 }
