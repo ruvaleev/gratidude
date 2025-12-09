@@ -18,3 +18,20 @@ jest.mock('expo-localization', () => ({
     },
   ]),
 }));
+
+// Mock @expo/vector-icons
+jest.mock('@expo/vector-icons', () => ({
+  Ionicons: ({ name }) => {
+    const { Text } = require('react-native');
+    const React = require('react');
+    return React.createElement(Text, { testID: `icon-${name}` }, name);
+  },
+}));
+
+// Mock expo-router
+jest.mock('expo-router', () => ({
+  useNavigation: () => ({
+    setOptions: jest.fn(),
+  }),
+  Stack: ({ children }) => children,
+}));

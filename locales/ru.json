@@ -1,9 +1,15 @@
 {
   "index": {
-    "gratitudePlaceholder": "За что вы благодарны?",
+    "gratitudes": "благодарности",
     "gratitudeSubmitButton": "Добавить благодарность",
-    "praisePlaceholder": "За что вы гордитесь собой?",
-    "praiseSubmitButton": "Добавить похвалу"
+    "gratitudeTitle": "Я благодарю Вселенную за...",
+    "inspiration": "Этот момент важен",
+    "placeholder": "...",
+    "praise": "Хвалю",
+    "praises": "похвалы",
+    "praiseSubmitButton": "Добавить похвалу",
+    "praiseTitle": "Я хвалю себя за...",
+    "thank": "Благодарю"
   }
 }
 

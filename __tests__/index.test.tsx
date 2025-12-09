@@ -4,7 +4,6 @@ import moment from 'moment';
 import React from 'react';
 import Index from '../app/index';
 import { DATE_FORMAT } from '../constants';
-import i18n from '../i18n';
 import { createStore, renderWithProviders, setPlatform } from './utils';
 
 describe('Index Screen', () => {
@@ -19,12 +18,12 @@ describe('Index Screen', () => {
     it('user can enter gratitudes to Universe', () => {
       const component = renderWithProviders(<Index />, { store });
 
-      const textInput = component.getByPlaceholderText(i18n.t('index.gratitudePlaceholder'));
+      const textInput = component.getByTestId('gratitudesInput');
       fireEvent.changeText(textInput, userGratitude);
 
       expect(textInput.props.value).toBe(userGratitude);
 
-      const gratitudeSubmitButton = component.getByText(i18n.t('index.gratitudeSubmitButton'));
+      const gratitudeSubmitButton = component.getByTestId('gratitudesSubmitButton');
       fireEvent.press(gratitudeSubmitButton);
 
       expect(textInput.props.value).toBe('');
@@ -39,12 +38,12 @@ describe('Index Screen', () => {
     it('user can enter praises to himself', () => {
       const component = renderWithProviders(<Index />, { store });
 
-      const textInput = component.getByPlaceholderText(i18n.t('index.praisePlaceholder'));
+      const textInput = component.getByTestId('praisesInput');
       fireEvent.changeText(textInput, userPraise);
 
       expect(textInput.props.value).toBe(userPraise);
 
-      const praiseSubmitButton = component.getByText(i18n.t('index.praiseSubmitButton'));
+      const praiseSubmitButton = component.getByTestId('praisesSubmitButton');
       fireEvent.press(praiseSubmitButton);
 
       expect(textInput.props.value).toBe('');
@@ -77,16 +76,16 @@ describe('Index Screen', () => {
         const component = renderWithProviders(<Index />, { store });
 
         const currentDateElement = component.getByTestId('currentDate');
-        expect(currentDateElement.props.children).toContain(today);
+        const formattedToday = moment(today, DATE_FORMAT).format('MMMM D');
+        expect(currentDateElement.props.children).toContain(formattedToday);
 
         const gratitudesList = component.getByTestId('gratitudesList');
         expect(
           within(gratitudesList).queryByText(userGratitude)
         ).toBeTruthy();
 
-        const praisesList = component.getByTestId('praisesList');
         expect(
-          within(praisesList).queryByText(userPraise)
+          component.queryByTestId('praisesList')
         ).toBeNull();
 
         fireEvent.press(currentDateElement);
@@ -101,14 +100,15 @@ describe('Index Screen', () => {
         fireEvent.press(confirmButton);
 
         const newDateElement = component.getByTestId('currentDate');
-        expect(newDateElement.props.children).toContain(yesterday);
+        const formattedYesterday = moment(yesterday, DATE_FORMAT).format('MMMM D');
+        expect(newDateElement.props.children).toContain(formattedYesterday);
 
         expect(store.getState().date.selectedDate).toBe(yesterday);
 
-        expect(
-          within(gratitudesList).queryByText(userGratitude)
-        ).toBeNull();
+        const updatedGratitudesList = component.queryByTestId('gratitudesList');
+        expect(updatedGratitudesList).toBeNull();
 
+        const praisesList = component.getByTestId('praisesList');
         expect(
           within(praisesList).queryByText(userPraise)
         ).toBeTruthy();
@@ -144,12 +144,15 @@ describe('Index Screen', () => {
         const component = renderWithProviders(<Index />, { store });
 
         const currentDateElement = component.getByTestId('currentDate');
-        expect(currentDateElement.props.children).toContain(today);
+        const formattedDate = moment(today, DATE_FORMAT).format('MMMM D');
+        expect(currentDateElement.props.children).toContain(formattedDate);
 
         const previousDayButton = component.getByTestId('previousDayButton');
         fireEvent.press(previousDayButton);
 
-        expect(currentDateElement.props.children).toContain(yesterday);
+        const updatedDateElement = component.getByTestId('currentDate');
+        const formattedYesterday = moment(yesterday, DATE_FORMAT).format('MMMM D');
+        expect(updatedDateElement.props.children).toContain(formattedYesterday);
         expect(store.getState().date.selectedDate).toBe(yesterday);
       });
 
@@ -168,14 +171,17 @@ describe('Index Screen', () => {
         const component = renderWithProviders(<Index />, { store: storeWithOldDate });
 
         const currentDateElement = component.getByTestId('currentDate');
-        expect(currentDateElement.props.children).toContain(twoDaysAgo);
+        const formattedDate = moment(twoDaysAgo, DATE_FORMAT).format('MMMM D');
+        expect(currentDateElement.props.children).toContain(formattedDate);
 
         const nextDayButton = component.getByTestId('nextDayButton');
         expect(nextDayButton.props.accessibilityState.disabled).toBe(false);
 
         fireEvent.press(nextDayButton);
 
-        expect(currentDateElement.props.children).toContain(yesterday);
+        const updatedDateElement = component.getByTestId('currentDate');
+        const formattedYesterday = moment(yesterday, DATE_FORMAT).format('MMMM D');
+        expect(updatedDateElement.props.children).toContain(formattedYesterday);
         expect(storeWithOldDate.getState().date.selectedDate).toBe(yesterday);
       });
 
@@ -193,7 +199,8 @@ describe('Index Screen', () => {
         const component = renderWithProviders(<Index />, { store });
 
         const currentDateElement = component.getByTestId('currentDate');
-        expect(currentDateElement.props.children).toContain(today);
+        const formattedDate = moment(today, DATE_FORMAT).format('MMMM D');
+        expect(currentDateElement.props.children).toContain(formattedDate);
 
         const nextDayButton = component.getByTestId('nextDayButton');
         expect(nextDayButton.props.accessibilityState.disabled).toBe(true);

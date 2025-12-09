@@ -32,7 +32,12 @@ export default function RootLayout() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Stack />
+        <Stack>
+          <Stack.Screen 
+            name="index" 
+            options={{ headerShown: false }} 
+          />
+        </Stack>
       </PersistGate>
     </Provider>
   );
