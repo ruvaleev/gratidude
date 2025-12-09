@@ -1,16 +1,20 @@
 import i18n from "@/i18n";
+import { setLocale } from "@/store/slices/localeSlice";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useDispatch } from "react-redux";
 
 export default function BurgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
   const { i18n: i18nInstance } = useTranslation();
   const currentLocale = i18nInstance.language;
 
   const handleLocaleChange = (locale: string) => {
     i18n.changeLanguage(locale);
+    dispatch(setLocale(locale));
     setIsOpen(false);
   };
 

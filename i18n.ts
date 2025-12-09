@@ -1,5 +1,5 @@
 import * as Localization from 'expo-localization';
-import { default as i18nInstance } from 'i18next';
+import * as i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 import en from './locales/en.json';
@@ -13,10 +13,12 @@ const resources = {
 // Get device locale and extract language code (e.g., "en-US" -> "en")
 const deviceLanguage = Localization.getLocales()[0]?.languageCode || 'en';
 
-i18nInstance
+// Initialize i18n synchronously with device language
+// The locale will be synced from Redux store after it loads (see _layout.tsx)
+i18n
   .use(initReactI18next)
   .init({
-    compatibilityJSON: 'v3',
+    compatibilityJSON: 'v4',
     resources,
     lng: deviceLanguage,
     fallbackLng: 'en',
@@ -25,5 +27,5 @@ i18nInstance
     },
   });
 
-export default i18nInstance;
+export default i18n;
 

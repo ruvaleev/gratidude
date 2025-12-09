@@ -4,13 +4,16 @@ import { setSelectedDate } from "@/store/slices/dateSlice";
 import { Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
+import 'moment/locale/ru';
 import { useState } from "react";
 import { Modal, Platform, Pressable, StyleSheet, Text, View } from "react-native";
+
 
 export default function DateForm() {
   const dispatch = useAppDispatch();
   
   const currentSelectedDate = useAppSelector((state) => state.date.selectedDate);
+  const { locale } = useAppSelector((state) => state.locale);
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
 
   const handleDatePress = () => {
@@ -49,7 +52,7 @@ export default function DateForm() {
   
   const formatMonth = (dateString: string) => {
     const date = moment(dateString, DATE_FORMAT);
-    return date.format('MMMM D');
+    return date.locale(locale).format('ll');
   };
   
   return (

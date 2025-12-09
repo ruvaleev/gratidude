@@ -1,3 +1,4 @@
+import useLocale from "@/hooks/useLocal";
 import { Stack } from "expo-router";
 import * as Updates from "expo-updates";
 import { useEffect } from "react";
@@ -5,7 +6,9 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "../store";
 
-export default function RootLayout() {
+function RootLayoutContent() {
+  useLocale();
+
   useEffect(() => {
     async function onFetchUpdateAsync() {
       try {
@@ -30,14 +33,20 @@ export default function RootLayout() {
   }, []);
 
   return (
+    <Stack>
+      <Stack.Screen 
+        name="index" 
+        options={{ headerShown: false }} 
+      />
+    </Stack>
+  );
+}
+
+export default function RootLayout() {
+  return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Stack>
-          <Stack.Screen 
-            name="index" 
-            options={{ headerShown: false }} 
-          />
-        </Stack>
+        <RootLayoutContent />
       </PersistGate>
     </Provider>
   );

@@ -13,6 +13,7 @@ import {
 
 import dateReducer from './slices/dateSlice';
 import gratitudesReducer from './slices/gratitudesSlice';
+import localeReducer from './slices/localeSlice';
 import praisesReducer from './slices/praisesSlice';
 
 const DATA_VERSION = 1;
@@ -21,7 +22,7 @@ const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   version: DATA_VERSION,
-  whitelist: ['gratitudes', 'praises', 'date'],
+  whitelist: ['gratitudes', 'praises', 'date', 'locale'],
   migrate: (state: any, currentVersion: number) => {
     if (state && state._persist && state._persist.version === currentVersion) {
       // return current state if version is actual
@@ -36,6 +37,7 @@ export const rootReducer = combineReducers({
   gratitudes: gratitudesReducer,
   praises: praisesReducer,
   date: dateReducer,
+  locale: localeReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
