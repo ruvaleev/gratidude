@@ -1,7 +1,7 @@
 import DateForm from "@/components/date-form";
 import Footer from "@/components/footer";
 import GratitudeSection from "@/components/gratitude-section";
-import InspirationSection from "@/components/inspiration-section";
+import Header from "@/components/header";
 import PraisesSection from "@/components/praises-section";
 import "@/i18n";
 import { useAppSelector } from "@/store/hooks";
@@ -16,13 +16,13 @@ export default function Index() {
   
   return (
     <View style={styles.container}>
+      <Header />
       <ScrollView 
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContentContainer}
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.content}>
-          <InspirationSection />
           <DateForm />
           <GratitudeSection />
           <PraisesSection />

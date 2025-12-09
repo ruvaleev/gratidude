@@ -7,18 +7,19 @@ export default function InspirationSection() {
   
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{t("index.inspiration")}</Text>
+      <Text testID="inspirationText" style={styles.text}>{t("index.inspiration")}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 0,
-    marginTop: 16,
+    alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "rgba(231, 229, 228, 0.5)", // stone-200/50
-    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 16,
+    width: '100%'
   },
   text: {
     fontSize: 12,

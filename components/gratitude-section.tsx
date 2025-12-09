@@ -13,7 +13,7 @@ export default function GratitudeSection() {
   const gratitudes = useAppSelector((state) => selectGratitudesByDate(state, currentSelectedDate));
 
   const handleGratitudeSubmit = (value: string) => {
-    dispatch(addGratitude({ date: currentSelectedDate, text: value }))
+    dispatch(addGratitude({ date: currentSelectedDate, text: value }));
   };
   
   return (
