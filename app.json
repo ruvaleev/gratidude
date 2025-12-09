@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "gratidude_3",
-    "slug": "gratidude_3",
+    "name": "gratidude",
+    "slug": "gratidude",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -12,6 +12,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.gratidude.app",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -38,11 +39,26 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-updates"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "updates": {
+      "url": "https://u.expo.dev/19bf139d-4311-4876-be69-d1eb914e7559",
+      "fallbackToCacheTimeout": 0,
+      "checkAutomatically": "ON_LOAD"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "19bf139d-4311-4876-be69-d1eb914e7559"
+      }
     }
   }
 }

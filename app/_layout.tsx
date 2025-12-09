@@ -1,24 +1,56 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import useLocale from "@/hooks/useLocal";
+import { Stack } from "expo-router";
+import * as Updates from "expo-updates";
+import { useEffect } from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from "../store";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+function RootLayoutContent() {
+  useLocale();
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+  useEffect(() => {
+    async function onFetchUpdateAsync() {
+      try {
+        const update = await Updates.checkForUpdateAsync();
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+        if (update.isAvailable) {
+          await Updates.fetchUpdateAsync();
+          await Updates.reloadAsync();
+        }
+      } catch (error) {
+        // You can also add an alert() to see the error message in case of an error when fetching updates.
+        console.error(`Error fetching latest Expo update: ${error}`);
+      }
+    }
+
+    // Check for updates in production/preview builds (not in dev mode)
+    // Note: checkAutomatically: "ON_LOAD" in app.json also handles this automatically,
+    // but this manual check provides more control and immediate feedback
+    if (!__DEV__ && Updates.isEnabled) {
+      onFetchUpdateAsync();
+    }
+  }, []);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Stack>
+      <Stack.Screen 
+        name="index" 
+        options={{ headerShown: false }} 
+      />
+    </Stack>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <SafeAreaProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <RootLayoutContent />
+        </PersistGate>
+      </Provider>
+    </SafeAreaProvider>
   );
 }
