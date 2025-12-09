@@ -2,6 +2,7 @@ import useLocale from "@/hooks/useLocal";
 import { Stack } from "expo-router";
 import * as Updates from "expo-updates";
 import { useEffect } from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "../store";
@@ -44,10 +45,12 @@ function RootLayoutContent() {
 
 export default function RootLayout() {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <RootLayoutContent />
-      </PersistGate>
-    </Provider>
+    <SafeAreaProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <RootLayoutContent />
+        </PersistGate>
+      </Provider>
+    </SafeAreaProvider>
   );
 }

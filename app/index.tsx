@@ -8,6 +8,7 @@ import { useAppSelector } from "@/store/hooks";
 import selectGratitudesByDate from "@/store/selectors/selectGratitudesByDate";
 import selectPraisesByDate from "@/store/selectors/selectPraisesByDate";
 import { ScrollView, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
   const currentSelectedDate = useAppSelector((state) => state.date.selectedDate);
@@ -15,7 +16,7 @@ export default function Index() {
   const praises = useAppSelector((state) => selectPraisesByDate(state, currentSelectedDate));
   
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <Header />
       <ScrollView 
         style={styles.scrollView}
@@ -29,7 +30,7 @@ export default function Index() {
           <Footer gratitudesLength={gratitudes.length} praisesLength={praises.length} />
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
