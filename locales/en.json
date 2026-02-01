@@ -1,5 +1,16 @@
 {
   "index": {
+    "cancel": "Cancel",
+    "export": "Export",
+    "exportConfirm": "Export all gratitudes and praises to CSV?",
+    "exportData": "Export data",
+    "exportError": "Error",
+    "exportErrorMessage": "Failed to export data",
+    "exportSuccess": "Success",
+    "exportSuccessMessage": "Data exported to CSV successfully",
+    "exportToCsv": "Export to CSV",
+    "fileSaved": "File saved",
+    "fileSavedAt": "File saved at",
     "gratitudes": "gratitudes",
     "gratitudeSubmitButton": "Add Gratitude",
     "gratitudeTitle": "I am grateful to Universe for...",

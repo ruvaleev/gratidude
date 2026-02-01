@@ -4,6 +4,13 @@
 import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
 
+// Mock expo-file-system/legacy
+jest.mock('expo-file-system/legacy', () => ({
+  documentDirectory: 'file:///mock-documents/',
+  writeAsStringAsync: jest.fn(() => Promise.resolve()),
+  EncodingType: { UTF8: 'utf8' },
+}));
+
 // Mock expo-localization for tests
 jest.mock('expo-localization', () => ({
   getLocales: jest.fn(() => [
@@ -34,4 +41,10 @@ jest.mock('expo-router', () => ({
     setOptions: jest.fn(),
   }),
   Stack: ({ children }) => children,
+}));
+
+// Mock expo-sharing
+jest.mock('expo-sharing', () => ({
+  isAvailableAsync: jest.fn(() => Promise.resolve(true)),
+  shareAsync: jest.fn(() => Promise.resolve()),
 }));

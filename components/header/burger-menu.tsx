@@ -1,3 +1,4 @@
+import ExportDataButton from "@/components/export-data-button";
 import i18n from "@/i18n";
 import { setLocale } from "@/store/slices/localeSlice";
 import { Ionicons } from "@expo/vector-icons";
@@ -60,6 +61,7 @@ export default function BurgerMenu() {
               RU
             </Text>
           </Pressable>
+          <ExportDataButton />
         </View>
       )}
     </View>

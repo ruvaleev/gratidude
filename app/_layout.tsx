@@ -9,6 +9,7 @@ import { persistor, store } from "../store";
 
 function RootLayoutContent() {
   useLocale();
+  // useAutoBackup();
 
   useEffect(() => {
     async function onFetchUpdateAsync() {

@@ -1,5 +1,16 @@
 {
   "index": {
+    "cancel": "Отмена",
+    "export": "Экспорт",
+    "exportConfirm": "Экспортировать все благодарности и похвалы в CSV?",
+    "exportData": "Экспорт данных",
+    "exportError": "Ошибка",
+    "exportErrorMessage": "Не удалось экспортировать данные",
+    "exportSuccess": "Успех",
+    "exportSuccessMessage": "Данные успешно экспортированы в CSV",
+    "exportToCsv": "Экспорт в CSV",
+    "fileSaved": "Файл сохранён",
+    "fileSavedAt": "Файл сохранён по адресу",
     "gratitudes": "благодарности",
     "gratitudeSubmitButton": "Добавить благодарность",
     "gratitudeTitle": "Я благодарю Вселенную за...",
