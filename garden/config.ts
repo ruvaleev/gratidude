@@ -22,9 +22,9 @@ export const MAX_SIZE_BONUS = 0.45;
  * of the soil's width so it holds at any rendered size.
  */
 export function plantUnitFactor(count: number): number {
-  if (count <= 4) return 0.3;
-  if (count <= 9) return 0.24;
-  return 0.19;
+  if (count <= 4) return 0.32;
+  if (count <= 9) return 0.27;
+  return 0.2;
 }
 
 export const PLANT_COLORS = [
@@ -44,6 +44,13 @@ export const STEM = '#4E7A3C';
 export const STEM_LIGHT = '#6E9B57';
 export const MOSS = '#6F8A4A';
 export const GOLD = '#E9C46A';
+
+/** Back leaves sit darker than front ones, which is what gives a plant depth. */
+export const FOLIAGE = ['#37602F', '#416E36', '#4E8043', '#5E9450', '#6DA75C'];
+
+/** Warm middle of a flower, and the ring just inside the petals. */
+export const FLOWER_CENTER = '#F6D96A';
+export const FLOWER_CENTER_DEEP = '#E0A93C';
 
 /**
  * One signature flower per month: the bed changes through the year on its own,

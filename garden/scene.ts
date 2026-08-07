@@ -49,26 +49,44 @@ function stageFor(ratio: number, isSeasonal: boolean): PlantStage {
   return 'flower';
 }
 
-/** Jittered grid, so plants scatter without landing on top of each other. */
+/**
+ * Jittered grid, so plants scatter without landing on top of each other.
+ *
+ * Plants are anchored at their base and grow upwards, so the band stops well
+ * short of the top and sides — otherwise a tall flower runs over the kerb.
+ */
+const PLOT = { left: 0.14, right: 0.86, top: 0.34, bottom: 0.94 };
+
+/**
+ * How much smaller a plant at the back of the bed is drawn than one at the front.
+ * Large on purpose: rows sit close together on a square bed, and without a real
+ * size difference the front row simply hides the back one.
+ */
+const DEPTH_SHRINK = 0.3;
+
 function scatter(count: number, random: () => number) {
-  const gridSize = Math.max(2, Math.ceil(Math.sqrt(Math.max(1, count))));
+  if (count === 0) return [];
+
+  const cols = Math.max(2, Math.ceil(Math.sqrt(count)));
+  const rows = Math.ceil(count / cols);
+  const spanX = PLOT.right - PLOT.left;
+  const spanY = PLOT.bottom - PLOT.top;
   const slots: { x: number; y: number }[] = [];
 
-  for (let row = 0; row < gridSize; row++) {
-    for (let col = 0; col < gridSize; col++) {
-      slots.push({
-        x: (col + 0.5) / gridSize + (random() - 0.5) * (0.5 / gridSize),
-        y: (row + 0.62) / gridSize + (random() - 0.5) * (0.4 / gridSize),
-      });
-    }
+  for (let index = 0; index < count; index++) {
+    const row = Math.floor(index / cols);
+    const col = index % cols;
+    // The last row is usually short; centre it instead of leaving a gap on one side.
+    const inThisRow = Math.min(cols, count - row * cols);
+    const offset = (cols - inThisRow) / 2;
+
+    slots.push({
+      x: PLOT.left + spanX * ((col + offset + 0.5) / cols) + (random() - 0.5) * (spanX * 0.5) / cols,
+      y: PLOT.top + spanY * ((row + 0.5) / rows) + (random() - 0.5) * (spanY * 0.4) / rows,
+    });
   }
 
-  for (let i = slots.length - 1; i > 0; i--) {
-    const j = Math.floor(random() * (i + 1));
-    [slots[i], slots[j]] = [slots[j], slots[i]];
-  }
-
-  return slots.slice(0, count);
+  return slots;
 }
 
 /**
@@ -113,7 +131,8 @@ export function buildScene(
     : null;
 
   const visible = Math.min(praises.length, MAX_PLANTS[variant]);
-  const positions = scatter(visible, random);
+  // Sorted back to front, so plants lower on the bed overlap the ones behind.
+  const positions = scatter(visible, random).sort((a, b) => a.y - b.y);
 
   // Entries that did not get their own plant push the whole bed up a size.
   const hidden = praises.length - visible;
@@ -129,7 +148,20 @@ export function buildScene(
     praises[0]
   );
 
-  const plants: PlantSpec[] = praises.slice(0, visible).map((entry, index) => {
+  // When not everything fits — a tile holds four plants — show the day at its
+  // best rather than whatever happened to be written first, but keep the
+  // survivors in the order they were written so the bed stays stable.
+  const shown =
+    praises.length <= visible
+      ? praises
+      : praises
+          .map((entry, order) => ({ entry, order }))
+          .sort((a, b) => (b.entry.points || 1) - (a.entry.points || 1))
+          .slice(0, visible)
+          .sort((a, b) => a.order - b.order)
+          .map((item) => item.entry);
+
+  const plants: PlantSpec[] = shown.map((entry, index) => {
     const ratio = settings.points.enabled
       ? clamp(((entry.points || 1) - 1) / (pointsScale - 1), 0, 1)
       : fill;
@@ -137,12 +169,17 @@ export function buildScene(
     // Hitting the goal earns the day one flower of the month.
     const isSeasonal = goalReached && entry.id === strongest?.id;
 
+    const y = positions[index]?.y ?? 0.6;
+    // Rows overlap heavily on a square bed; shrinking the far ones keeps every
+    // plant readable and makes the bed read as having depth.
+    const depth = 1 - DEPTH_SHRINK * (1 - (y - PLOT.top) / (PLOT.bottom - PLOT.top));
+
     return {
       entryId: entry.id,
       x: positions[index]?.x ?? 0.5,
-      y: positions[index]?.y ?? 0.6,
+      y,
       stage: stageFor(ratio, isSeasonal),
-      scale: clamp(0.55 + ratio * 0.25 + fill * 0.2 + sizeBonus, 0.4, 1.6),
+      scale: clamp((0.55 + ratio * 0.25 + fill * 0.2 + sizeBonus) * depth, 0.4, 1.6),
       colorIndex: Math.floor(random() * PLANT_COLORS.length),
       lean: (random() - 0.5) * 0.5,
     };

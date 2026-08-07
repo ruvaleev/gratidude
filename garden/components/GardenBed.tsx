@@ -10,9 +10,9 @@ import Svg, {
   Stop,
 } from 'react-native-svg';
 import { mix, temperature, withAlpha } from '../colors';
-import { GOLD, LIGHT, MOSS, plantUnitFactor, SOIL, SPARK, STEM, STONE } from '../config';
+import { FOLIAGE, GOLD, LIGHT, MOSS, plantUnitFactor, SOIL, SPARK, STONE } from '../config';
 import type { Scene } from '../types';
-import Plant from './Plant';
+import Plant, { leafPath } from './Plant';
 
 /** Everything is laid out in a 100×100 box and scaled by the Svg itself. */
 const BOX = 100;
@@ -98,19 +98,25 @@ export default function GardenBed({ scene, size }: { scene: Scene; size: number 
       {scene.groundCover.map((tuft, index) => {
         const x = toX(tuft.x);
         const y = toY(tuft.y);
-        const s = unit * 0.16 * tuft.scale;
+        const s = unit * 0.13 * tuft.scale;
         if (!detailed) {
-          return <Ellipse key={`cover-${index}`} cx={x} cy={y} rx={s * 0.6} ry={s * 0.35} fill={withAlpha(MOSS, 0.45)} />;
+          return (
+            <Ellipse
+              key={`cover-${index}`}
+              cx={x}
+              cy={y}
+              rx={s * 0.55}
+              ry={s * 0.3}
+              fill={withAlpha(MOSS, 0.5)}
+            />
+          );
         }
+        // A small pair of leaves reads as undergrowth; a stroked V reads as a tick mark.
         return (
-          <Path
-            key={`cover-${index}`}
-            d={`M ${x} ${y} Q ${x - s * 0.4} ${y - s * 0.7} ${x - s * 0.7} ${y - s} M ${x} ${y} Q ${x + s * 0.4} ${y - s * 0.7} ${x + s * 0.7} ${y - s}`}
-            stroke={withAlpha(STEM, 0.55)}
-            strokeWidth={Math.max(0.5, s * 0.22)}
-            strokeLinecap="round"
-            fill="none"
-          />
+          <G key={`cover-${index}`} transform={`translate(${x}, ${y})`} opacity={0.5}>
+            <Path d={leafPath(s, s * 0.5)} fill={withAlpha(FOLIAGE[1], 0.9)} transform="rotate(-150)" />
+            <Path d={leafPath(s * 0.86, s * 0.44)} fill={withAlpha(FOLIAGE[3], 0.9)} transform="rotate(-30)" />
+          </G>
         );
       })}
 

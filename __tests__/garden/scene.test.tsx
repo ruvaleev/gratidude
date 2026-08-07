@@ -70,6 +70,24 @@ describe('buildScene', () => {
     it('still counts every entry towards the score', () => {
       expect(scene.praisePoints).toBe(30);
     });
+
+    it('keeps the best of the day rather than whatever came first', () => {
+      const mixed = buildScene(
+        {
+          date: DATE,
+          praises: [
+            ...entries(6, 1),
+            { id: 'hard', text: 'The hard one', points: 3, createdAt: '' },
+          ],
+          gratitudes: [],
+        },
+        settings({ points: { enabled: true, scale: 3 } }),
+        { variant: 'tile' }
+      );
+
+      expect(mixed.plants).toHaveLength(MAX_PLANTS.tile);
+      expect(mixed.plants.map((plant) => plant.entryId)).toContain('hard');
+    });
   });
 
   describe('gratitude as light', () => {

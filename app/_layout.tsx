@@ -51,6 +51,16 @@ function RootLayoutContent() {
           headerTitleStyle: { fontWeight: "300" },
         }}
       />
+      <Stack.Screen
+        name="playground"
+        options={{
+          title: "Песочница клумбы",
+          headerTintColor: "#44403c",
+          headerStyle: { backgroundColor: "#fafaf9" },
+          headerShadowVisible: false,
+          headerTitleStyle: { fontWeight: "300" },
+        }}
+      />
     </Stack>
   );
 }

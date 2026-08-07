@@ -13,6 +13,8 @@ import {
   setGoal,
   setTrackEnabled,
 } from "@/store/slices/settingsSlice";
+import { Ionicons } from "@expo/vector-icons";
+import { Link } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -109,6 +111,19 @@ export default function SettingsScreen() {
         <SettingsSection title={t("settings.dataSection")}>
           <ExportDataButton />
         </SettingsSection>
+
+        {/* Development only — the workbench never ships to anyone's phone. */}
+        {/*__DEV__ && ( */ /* temporary use it in any environment */
+          true && ( /* temporary use it in any environment */
+          <SettingsSection title="Разработка">
+            <Link href="/playground" asChild>
+              <Pressable style={styles.devRow} testID="playgroundLink">
+                <Text style={styles.devText}>Песочница клумбы</Text>
+                <Ionicons name="chevron-forward" size={18} color="#a8a29e" />
+              </Pressable>
+            </Link>
+          </SettingsSection>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -149,5 +164,17 @@ const styles = StyleSheet.create({
   localeTextActive: {
     color: "#fafaf9",
     fontWeight: "500",
+  },
+  devRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+  },
+  devText: {
+    fontSize: 15,
+    color: "#44403c",
+    fontWeight: "300",
   },
 });
