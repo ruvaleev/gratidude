@@ -1,29 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import createEntriesSlice from './createEntriesSlice';
 
-interface PraisesState {
-  items: { [date: string]: string[] };
-}
+const praisesSlice = createEntriesSlice('praises');
 
-const initialState: PraisesState = {
-  items: {},
-};
+export const {
+  add: addPraise,
+  remove: removePraise,
+  setPoints: setPraisePoints,
+  clear: clearPraises,
+} = praisesSlice.actions;
 
-const praisesSlice = createSlice({
-  name: 'praises',
-  initialState,
-  reducers: {
-    addPraise: (state, action: PayloadAction<{ date: string; text: string }>) => {
-      const { date, text } = action.payload;
-      if (!state.items[date]) {
-        state.items[date] = [];
-      }
-      state.items[date].push(text);
-    },
-    clearPraises: (state) => {
-      state.items = {};
-    },
-  },
-});
-
-export const { addPraise, clearPraises } = praisesSlice.actions;
 export default praisesSlice.reducer;

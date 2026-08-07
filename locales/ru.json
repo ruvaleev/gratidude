@@ -21,6 +21,44 @@
     "praiseSubmitButton": "Добавить похвалу",
     "praiseTitle": "Я хвалю себя за...",
     "thank": "Благодарю"
+  },
+  "tabs": {
+    "garden": "Сад",
+    "week": "Неделя",
+    "month": "Месяц"
+  },
+  "garden": {
+    "praisesLabel": "дел",
+    "gratitudesLabel": "замечено",
+    "goalReached": "цель дня взята",
+    "today": "сегодня"
+  },
+  "week": {
+    "title": "Неделя"
+  },
+  "month": {
+    "title": "Месяц",
+    "totals": "За месяц: {{praises}} · {{gratitudes}}",
+    "praisesCount_one": "{{count}} дело",
+    "praisesCount_few": "{{count}} дела",
+    "praisesCount_many": "{{count}} дел",
+    "gratitudesCount_one": "{{count}} благодарность",
+    "gratitudesCount_few": "{{count}} благодарности",
+    "gratitudesCount_many": "{{count}} благодарностей"
+  },
+  "settings": {
+    "title": "Настройки",
+    "tracksSection": "Что я веду",
+    "praisesTrack": "Я хвалю себя",
+    "gratitudesTrack": "Я благодарю Вселенную",
+    "lastTrackHint": "Хотя бы один дневник должен остаться включённым",
+    "goalsSection": "Ориентир на день",
+    "praisesGoal": "Дел в день",
+    "gratitudesGoal": "Благодарностей в день",
+    "goalHint": "Клумба считается полной, когда за день набрано столько. Это ориентир, а не норма — его можно занизить в трудный период.",
+    "languageSection": "Язык",
+    "dataSection": "Данные",
+    "decrease": "Уменьшить",
+    "increase": "Увеличить"
   }
 }
-

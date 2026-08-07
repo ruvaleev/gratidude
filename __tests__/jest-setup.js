@@ -36,12 +36,25 @@ jest.mock('@expo/vector-icons', () => ({
 }));
 
 // Mock expo-router
+const mockRouter = {
+  push: jest.fn(),
+  replace: jest.fn(),
+  back: jest.fn(),
+  navigate: jest.fn(),
+};
+
 jest.mock('expo-router', () => ({
   useNavigation: () => ({
     setOptions: jest.fn(),
   }),
+  useRouter: () => mockRouter,
+  // `asChild` hands rendering to the child, which is how the app uses Link.
+  Link: ({ children }) => children,
   Stack: ({ children }) => children,
+  Tabs: ({ children }) => children,
 }));
+
+global.mockRouter = mockRouter;
 
 // Mock expo-sharing
 jest.mock('expo-sharing', () => ({

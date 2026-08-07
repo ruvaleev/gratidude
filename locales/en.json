@@ -21,6 +21,42 @@
     "praiseSubmitButton": "Add Praise",
     "praiseTitle": "I praise myself for...",
     "thank": "Thank"
+  },
+  "tabs": {
+    "garden": "Garden",
+    "week": "Week",
+    "month": "Month"
+  },
+  "garden": {
+    "praisesLabel": "done",
+    "gratitudesLabel": "noticed",
+    "goalReached": "today's aim met",
+    "today": "today"
+  },
+  "week": {
+    "title": "Week"
+  },
+  "month": {
+    "title": "Month",
+    "totals": "This month: {{praises}} · {{gratitudes}}",
+    "praisesCount_one": "{{count}} thing done",
+    "praisesCount_other": "{{count}} things done",
+    "gratitudesCount_one": "{{count}} gratitude",
+    "gratitudesCount_other": "{{count}} gratitudes"
+  },
+  "settings": {
+    "title": "Settings",
+    "tracksSection": "What I keep",
+    "praisesTrack": "I praise myself",
+    "gratitudesTrack": "I thank the Universe",
+    "lastTrackHint": "At least one diary has to stay on",
+    "goalsSection": "Daily aim",
+    "praisesGoal": "Things a day",
+    "gratitudesGoal": "Gratitudes a day",
+    "goalHint": "The bed counts as full once you reach this in a day. It is an aim, not a quota — lower it when the week is hard.",
+    "languageSection": "Language",
+    "dataSection": "Data",
+    "decrease": "Decrease",
+    "increase": "Increase"
   }
 }
-

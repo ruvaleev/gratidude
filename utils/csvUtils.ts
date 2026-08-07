@@ -18,22 +18,22 @@ function escapeCsvValue(value: unknown): string {
 
 /**
  * Converts gratidude Redux store data to CSV format.
- * Produces a readable table: Type, Date, Text (one row per gratitude/praise).
+ * Produces a readable table: Type, Date, Text, Points (one row per entry).
  */
 export function convertStoreToCSV(state: RootState): string {
-  const rows: string[][] = [["Type", "Date", "Text"]];
+  const rows: string[][] = [["Type", "Date", "Text", "Points"]];
 
   const gratitudes = state.gratitudes?.items ?? {};
-  for (const [date, texts] of Object.entries(gratitudes)) {
-    for (const text of texts ?? []) {
-      rows.push(["gratitude", date, text]);
+  for (const [date, entries] of Object.entries(gratitudes)) {
+    for (const entry of entries ?? []) {
+      rows.push(["gratitude", date, entry.text, String(entry.points ?? 1)]);
     }
   }
 
   const praises = state.praises?.items ?? {};
-  for (const [date, texts] of Object.entries(praises)) {
-    for (const text of texts ?? []) {
-      rows.push(["praise", date, text]);
+  for (const [date, entries] of Object.entries(praises)) {
+    for (const entry of entries ?? []) {
+      rows.push(["praise", date, entry.text, String(entry.points ?? 1)]);
     }
   }
 

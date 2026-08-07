@@ -1,34 +1,22 @@
-import Index from '@/app/index';
-import i18n from '@/i18n';
+import SettingsScreen from '@/app/settings';
 import { fireEvent } from '@testing-library/react-native';
 import React from 'react';
 import { renderWithProviders } from './utils';
 
 describe('Change Locale', () => {
-  it('user can change locale', () => {
-    const component = renderWithProviders(<Index />);
+  it('user can change locale from settings', () => {
+    const { store, getByTestId, queryByText } = renderWithProviders(<SettingsScreen />);
 
-    const burgerMenuButton = component.getByTestId('burgerMenuButton');
-    expect(component.queryByTestId('localeButtonRu')).toBeNull();
+    fireEvent.press(getByTestId('localeButtonRu'));
 
-    fireEvent.press(burgerMenuButton);
+    expect(store.getState().locale.locale).toBe('ru');
+    expect(queryByText('Что я веду')).toBeTruthy();
+    expect(queryByText('What I keep')).toBeNull();
 
-    const inspirationText = component.getByTestId('inspirationText');
-    expect(inspirationText.props.children).toBe(i18n.t("index.inspiration", { locale: 'en' }));
+    fireEvent.press(getByTestId('localeButtonEn'));
 
-    const localeButtonRu = component.getByTestId('localeButtonRu');
-    fireEvent.press(localeButtonRu);
-
-    // Check if translation is changed
-    expect(inspirationText.props.children).toBe(i18n.t("index.inspiration", { locale: 'ru' }));
-    // Check if burger menu is closed
-    expect(component.queryByTestId('localeButtonEn')).toBeNull();
-
-    fireEvent.press(burgerMenuButton);
-
-    const localeButtonEn = component.getByTestId('localeButtonEn');
-    fireEvent.press(localeButtonEn);
-
-    expect(inspirationText.props.children).toBe(i18n.t("index.inspiration", { locale: 'en' }));
+    expect(store.getState().locale.locale).toBe('en');
+    expect(queryByText('What I keep')).toBeTruthy();
+    expect(queryByText('Что я веду')).toBeNull();
   });
 });

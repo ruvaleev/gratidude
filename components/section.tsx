@@ -1,12 +1,13 @@
 import ItemsList from "@/components/items-list";
 import "@/i18n";
+import type { Entry } from "@/store/types";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function Section(
   { title, items, sectionId, onSubmit, buttonText }:
-  { title: string, items: string[], sectionId: string, onSubmit: (value: string) => void, buttonText: string }
+  { title: string, items: Entry[], sectionId: string, onSubmit: (value: string) => void, buttonText: string }
 ) {
   const { t } = useTranslation();
   const [value, setValue] = useState("");

@@ -2,9 +2,9 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { fireEvent, within } from '@testing-library/react-native';
 import moment from 'moment';
 import React from 'react';
-import Index from '../app/index';
+import Index from '../app/(tabs)/index';
 import { DATE_FORMAT } from '../constants';
-import { createStore, renderWithProviders, setPlatform } from './utils';
+import { createStore, entry, renderWithProviders, setPlatform, textsOf } from './utils';
 
 const formatDate = (date: string) => {
   return moment(date, DATE_FORMAT).locale('en').format('ll');
@@ -36,7 +36,7 @@ describe('Index Screen', () => {
       const gratitudeItem = within(gratitudesList).getByText(userGratitude);
       expect(gratitudeItem).toBeTruthy();
 
-      expect(store.getState().gratitudes.items[today]).toEqual([userGratitude]);
+      expect(textsOf(store.getState().gratitudes.items[today])).toEqual([userGratitude]);
     });
 
     it('user can enter praises to himself', () => {
@@ -56,7 +56,7 @@ describe('Index Screen', () => {
       const praiseItem = within(praisesList).getByText(userPraise);
       expect(praiseItem).toBeTruthy();
 
-      expect(store.getState().praises.items[today]).toEqual([userPraise]);
+      expect(textsOf(store.getState().praises.items[today])).toEqual([userPraise]);
     });
   });
 
@@ -70,10 +70,10 @@ describe('Index Screen', () => {
         const store = createStore({
           date: { selectedDate: today },
           gratitudes: {
-            items: { [today]: [userGratitude] },
+            items: { [today]: [entry(userGratitude)] },
           },
           praises: {
-            items: { [yesterday]: [userPraise] },
+            items: { [yesterday]: [entry(userPraise)] },
           },
         });
 
@@ -138,10 +138,10 @@ describe('Index Screen', () => {
         const store = createStore({
           date: { selectedDate: today },
           gratitudes: {
-            items: { [today]: [userGratitude] },
+            items: { [today]: [entry(userGratitude)] },
           },
           praises: {
-            items: { [yesterday]: [userPraise] },
+            items: { [yesterday]: [entry(userPraise)] },
           },
         });
 
@@ -193,10 +193,10 @@ describe('Index Screen', () => {
         const store = createStore({
           date: { selectedDate: today },
           gratitudes: {
-            items: { [today]: [userGratitude] },
+            items: { [today]: [entry(userGratitude)] },
           },
           praises: {
-            items: { [yesterday]: [userPraise] },
+            items: { [yesterday]: [entry(userPraise)] },
           },
         });
 

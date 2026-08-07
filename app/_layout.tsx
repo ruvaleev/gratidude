@@ -1,13 +1,16 @@
 import useLocale from "@/hooks/useLocal";
+import "@/i18n";
 import { Stack } from "expo-router";
 import * as Updates from "expo-updates";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "../store";
 
 function RootLayoutContent() {
+  const { t } = useTranslation();
   useLocale();
   // useAutoBackup();
 
@@ -36,9 +39,17 @@ function RootLayoutContent() {
 
   return (
     <Stack>
-      <Stack.Screen 
-        name="index" 
-        options={{ headerShown: false }} 
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="settings"
+        options={{
+          title: t("settings.title"),
+          headerBackTitle: "",
+          headerTintColor: "#44403c",
+          headerStyle: { backgroundColor: "#fafaf9" },
+          headerShadowVisible: false,
+          headerTitleStyle: { fontWeight: "300" },
+        }}
       />
     </Stack>
   );
