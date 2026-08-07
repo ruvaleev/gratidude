@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -18,7 +19,7 @@ export default function PeriodNav({
   return (
     <View style={styles.row}>
       <Pressable onPress={onPrevious} style={styles.button} testID={`${testID}Previous`}>
-        <Ionicons name="chevron-back" size={20} color="#a8a29e" />
+        <Ionicons name="chevron-back" size={20} color={colors.textMuted} />
       </Pressable>
 
       <Text style={styles.title} testID={`${testID}Title`}>
@@ -31,7 +32,7 @@ export default function PeriodNav({
         style={[styles.button, nextDisabled && styles.disabled]}
         testID={`${testID}Next`}
       >
-        <Ionicons name="chevron-forward" size={20} color={nextDisabled ? "#d6d3d1" : "#a8a29e"} />
+        <Ionicons name="chevron-forward" size={20} color={nextDisabled ? colors.textDisabled : colors.textMuted} />
       </Pressable>
     </View>
   );
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    color: "#44403c", // stone-700
+    color: colors.text, // stone-700
     fontWeight: "300",
     letterSpacing: 1,
     minWidth: 160,

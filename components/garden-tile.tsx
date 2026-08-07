@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import GardenBed from "@/garden/components/GardenBed";
 import useGardenScene from "@/garden/useGardenScene";
 import { DATE_FORMAT } from "@/constants";
@@ -64,15 +65,15 @@ const styles = StyleSheet.create({
   },
   today: {
     borderWidth: 2,
-    borderColor: "#b08423",
+    borderColor: colors.gold,
   },
   label: {
     fontSize: 10,
-    color: "#a8a29e", // stone-400
+    color: colors.textMuted, // stone-400
     fontWeight: "300",
   },
   labelToday: {
-    color: "#44403c", // stone-700
+    color: colors.text, // stone-700
     fontWeight: "500",
   },
 });

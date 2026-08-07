@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import ItemsList from "@/components/items-list";
 import "@/i18n";
 import type { Entry } from "@/store/types";
@@ -6,11 +7,24 @@ import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function Section(
-  { title, items, sectionId, onSubmit, buttonText }:
-  { title: string, items: Entry[], sectionId: string, onSubmit: (value: string) => void, buttonText: string }
+  { title, items, sectionId, onSubmit, buttonText, onFieldFocus }:
+  {
+    title: string,
+    items: Entry[],
+    sectionId: string,
+    onSubmit: (value: string) => void,
+    buttonText: string,
+    /**
+     * Called when the field is focused, with the offset of the section's bottom
+     * edge in the page. The field and its button sit there, so that is the
+     * point the screen has to lift above the keyboard.
+     */
+    onFieldFocus?: (sectionBottom: number) => void,
+  }
 ) {
   const { t } = useTranslation();
   const [value, setValue] = useState("");
+  const [bottomY, setBottomY] = useState(0);
 
   const handleSubmit = () => {
     if (value.trim()) {
@@ -20,7 +34,14 @@ export default function Section(
   };
 
   return (
-    <View style={styles.section}>
+    <View
+      style={styles.section}
+      testID={`${sectionId}Section`}
+      onLayout={(event) => {
+        const { y, height } = event.nativeEvent.layout;
+        setBottomY(y + height);
+      }}
+    >
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>{title}</Text>
       </View>
@@ -30,10 +51,13 @@ export default function Section(
         testID={`${sectionId}Input`}
         style={styles.input}
         placeholder={t("index.placeholder")}
-        placeholderTextColor="#a8a29e"
+        placeholderTextColor={colors.textMuted}
         value={value}
         onChangeText={setValue}
         onSubmitEditing={handleSubmit}
+        onFocus={() => onFieldFocus?.(bottomY)}
+        // Keep the keyboard up after Enter — entries usually come in a run.
+        submitBehavior="submit"
       />
       
       <Pressable 
@@ -61,29 +85,29 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "300",
     letterSpacing: 1,
-    color: "#44403c", // stone-700
+    color: colors.text, // stone-700
   },
   input: {
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    backgroundColor: colors.surfaceMuted,
     borderWidth: 1,
-    borderColor: "rgba(231, 229, 228, 0.5)", // stone-200/50
+    borderColor: colors.borderSoft, // stone-200/50
     paddingHorizontal: 16,
     paddingVertical: 12,
     fontSize: 14,
-    color: "#292524", // stone-800
+    color: colors.textStrong, // stone-800
     lineHeight: 20,
   },
   button: {
-    backgroundColor: "#44403c", // stone-700
+    backgroundColor: colors.text, // stone-700
     paddingVertical: 12,
     alignItems: "center",
     justifyContent: "center",
   },
   buttonDisabled: {
-    backgroundColor: "#d6d3d1", // stone-300
+    backgroundColor: colors.textDisabled, // stone-300
   },
   buttonText: {
-    color: "white",
+    color: colors.surface,
     fontSize: 14,
     fontWeight: "300",
     textTransform: "uppercase",

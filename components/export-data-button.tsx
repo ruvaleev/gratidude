@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import { convertStoreToCSV } from "@/utils/csvUtils";
 import { Ionicons } from "@expo/vector-icons";
 import * as FileSystem from "expo-file-system/legacy";
@@ -106,13 +107,13 @@ export default function ExportDataButton() {
       disabled={isExporting}
     >
       {isExporting ? (
-        <ActivityIndicator size="small" color="#a8a29e" />
+        <ActivityIndicator size="small" color={colors.textMuted} />
       ) : (
         <>
           <Ionicons
             name="download-outline"
             size={16}
-            color="#a8a29e"
+            color={colors.textMuted}
             style={styles.icon}
           />
           <Text style={styles.menuItemText}>
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: "rgba(231, 229, 228, 0.5)",
+    borderBottomColor: colors.borderSoft,
   },
   menuItemDisabled: {
     opacity: 0.6,
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textTransform: "uppercase",
     letterSpacing: 4,
-    color: "#a8a29e",
+    color: colors.textMuted,
     fontWeight: "300",
   },
 });

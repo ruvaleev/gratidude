@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
@@ -9,11 +10,11 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#44403c", // stone-700
-        tabBarInactiveTintColor: "#a8a29e", // stone-400
+        tabBarActiveTintColor: colors.text, // stone-700
+        tabBarInactiveTintColor: colors.textMuted, // stone-400
         tabBarStyle: {
-          backgroundColor: "#fafaf9",
-          borderTopColor: "rgba(231, 229, 228, 0.8)",
+          backgroundColor: colors.background,
+          borderTopColor: colors.border,
         },
         tabBarLabelStyle: {
           fontSize: 11,

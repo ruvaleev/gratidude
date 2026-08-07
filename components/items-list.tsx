@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import type { Entry } from "@/store/types";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -22,12 +23,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "300",
     letterSpacing: 1,
-    color: "#44403c", // stone-700
+    color: colors.text, // stone-700
   },
   listContainer: {
     paddingTop: 16,
     borderTopWidth: 1,
-    borderTopColor: "rgba(231, 229, 228, 0.5)", // stone-200/50
+    borderTopColor: colors.borderSoft, // stone-200/50
     gap: 16,
   },
   listItem: {

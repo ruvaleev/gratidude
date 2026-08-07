@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import "@/i18n";
 import type { Scene } from "@/garden/types";
 import { useAppSelector } from "@/store/hooks";
@@ -56,17 +57,17 @@ const styles = StyleSheet.create({
   value: {
     fontSize: 22,
     fontWeight: "300",
-    color: "#292524", // stone-800
+    color: colors.textStrong, // stone-800
   },
   goal: {
     fontSize: 15,
-    color: "#a8a29e", // stone-400
+    color: colors.textMuted, // stone-400
   },
   label: {
     fontSize: 10,
     textTransform: "uppercase",
     letterSpacing: 3,
-    color: "#a8a29e",
+    color: colors.textMuted,
     marginTop: 2,
     fontWeight: "300",
   },
@@ -76,6 +77,6 @@ const styles = StyleSheet.create({
     fontSize: 9,
     textTransform: "uppercase",
     letterSpacing: 2,
-    color: "#b08423",
+    color: colors.gold,
   },
 });

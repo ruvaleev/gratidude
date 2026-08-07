@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import { DATE_FORMAT } from "@/constants";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setSelectedDate } from "@/store/slices/dateSlice";
@@ -102,7 +103,7 @@ export default function DateForm() {
             style={styles.dateNavButton}
             testID="previousDayButton"
           >
-            <Ionicons name="chevron-back" size={20} color="#a8a29e" />
+            <Ionicons name="chevron-back" size={20} color={colors.textMuted} />
           </Pressable>
           <Pressable onPress={handleDatePress} style={styles.dateTextContainer}>
             <Text style={styles.dateText} testID="currentDate">
@@ -115,7 +116,7 @@ export default function DateForm() {
             disabled={isToday}
             testID="nextDayButton"
           >
-            <Ionicons name="chevron-forward" size={20} color={isToday ? "#d6d3d1" : "#a8a29e"} />
+            <Ionicons name="chevron-forward" size={20} color={isToday ? colors.textDisabled : colors.textMuted} />
           </Pressable>
         </View>
       </View>
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 18,
-    color: "#44403c", // stone-700
+    color: colors.text, // stone-700
     fontWeight: "300",
     letterSpacing: 1,
   },
@@ -156,10 +157,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: colors.overlay,
   },
   datePickerContainer: {
-    backgroundColor: "white",
+    backgroundColor: colors.surface,
     borderRadius: 16,
     padding: 24,
     width: "80%",
@@ -183,13 +184,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cancelButton: {
-    backgroundColor: "#999",
+    backgroundColor: colors.textMuted,
   },
   confirmButton: {
-    backgroundColor: "#34C759",
+    backgroundColor: colors.accent,
   },
   modalButtonText: {
-    color: "white",
+    color: colors.surface,
     fontSize: 16,
     fontWeight: "600",
   },

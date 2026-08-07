@@ -5,7 +5,11 @@ import { addPraise } from "@/store/slices/praisesSlice";
 import { useTranslation } from "react-i18next";
 import Section from "./section";
 
-export default function PraisesSection() {
+export default function PraisesSection({
+  onFieldFocus,
+}: {
+  onFieldFocus?: (offsetY: number) => void;
+}) {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
@@ -23,6 +27,7 @@ export default function PraisesSection() {
       sectionId="praises"
       onSubmit={handlePraiseSubmit}
       buttonText={t("index.praise")}
+      onFieldFocus={onFieldFocus}
     />
   );
 }

@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import useLocale from "@/hooks/useLocal";
 import "@/i18n";
 import { Stack } from "expo-router";
@@ -45,8 +46,8 @@ function RootLayoutContent() {
         options={{
           title: t("settings.title"),
           headerBackTitle: "",
-          headerTintColor: "#44403c",
-          headerStyle: { backgroundColor: "#fafaf9" },
+          headerTintColor: colors.text,
+          headerStyle: { backgroundColor: colors.background },
           headerShadowVisible: false,
           headerTitleStyle: { fontWeight: "300" },
         }}
@@ -55,8 +56,8 @@ function RootLayoutContent() {
         name="playground"
         options={{
           title: "Песочница клумбы",
-          headerTintColor: "#44403c",
-          headerStyle: { backgroundColor: "#fafaf9" },
+          headerTintColor: colors.text,
+          headerStyle: { backgroundColor: colors.background },
           headerShadowVisible: false,
           headerTitleStyle: { fontWeight: "300" },
         }}

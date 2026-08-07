@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import InspirationSection from "@/components/header/inspiration-section";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
@@ -9,7 +10,7 @@ export default function Header() {
       <InspirationSection />
       <Link href="/settings" asChild>
         <Pressable style={styles.settingsButton} testID="settingsButton">
-          <Ionicons name="settings-outline" size={22} color="#a8a29e" />
+          <Ionicons name="settings-outline" size={22} color={colors.textMuted} />
         </Pressable>
       </Link>
     </View>

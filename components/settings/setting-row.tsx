@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import { Pressable, StyleSheet, Switch, Text, View } from "react-native";
 
 export function SettingsSection({
@@ -38,8 +39,8 @@ export function ToggleRow({
         value={value}
         onValueChange={onChange}
         disabled={disabled}
-        trackColor={{ true: "#7d9a5c", false: "#d6d3d1" }}
-        thumbColor="#fafaf9"
+        trackColor={{ true: colors.accentSoft, false: colors.textDisabled }}
+        thumbColor={colors.background}
         testID={testID}
       />
     </View>
@@ -105,15 +106,15 @@ const styles = StyleSheet.create({
     fontSize: 11,
     textTransform: "uppercase",
     letterSpacing: 3,
-    color: "#a8a29e", // stone-400
+    color: colors.textMuted, // stone-400
     fontWeight: "300",
     marginBottom: 10,
     paddingHorizontal: 4,
   },
   card: {
-    backgroundColor: "rgba(255, 255, 255, 0.6)",
+    backgroundColor: colors.surfaceMuted,
     borderWidth: 1,
-    borderColor: "rgba(231, 229, 228, 0.8)", // stone-200
+    borderColor: colors.border, // stone-200
     borderRadius: 12,
     overflow: "hidden",
   },
@@ -125,17 +126,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 14,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: "rgba(231, 229, 228, 0.9)",
+    borderBottomColor: colors.border,
   },
   label: {
     flex: 1,
     fontSize: 15,
-    color: "#44403c", // stone-700
+    color: colors.text, // stone-700
     fontWeight: "300",
   },
   hint: {
     fontSize: 12,
-    color: "#a8a29e",
+    color: colors.textMuted,
     fontWeight: "300",
     lineHeight: 17,
     marginTop: 8,
@@ -152,21 +153,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 8,
-    backgroundColor: "rgba(231, 229, 228, 0.6)",
+    backgroundColor: colors.surfaceSunken,
   },
   stepButtonDisabled: {
     opacity: 0.4,
   },
   stepText: {
     fontSize: 18,
-    color: "#44403c",
+    color: colors.text,
     lineHeight: 22,
   },
   stepValue: {
     minWidth: 34,
     textAlign: "center",
     fontSize: 17,
-    color: "#292524", // stone-800
+    color: colors.textStrong, // stone-800
     fontWeight: "400",
   },
 });

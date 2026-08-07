@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import GardenTile from "@/components/garden-tile";
 import PeriodNav from "@/components/period-nav";
 import { DATE_FORMAT } from "@/constants";
@@ -66,7 +67,7 @@ export default function WeekScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fafaf9", // stone-50
+    backgroundColor: colors.background, // stone-50
   },
   content: {
     paddingHorizontal: 16,

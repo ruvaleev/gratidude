@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import GardenTile from "@/components/garden-tile";
 import PeriodNav from "@/components/period-nav";
 import { DATE_FORMAT } from "@/constants";
@@ -116,7 +117,7 @@ export default function MonthScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fafaf9", // stone-50
+    backgroundColor: colors.background, // stone-50
   },
   content: {
     paddingHorizontal: 16,
@@ -131,14 +132,14 @@ const styles = StyleSheet.create({
   weekday: {
     fontSize: 10,
     textAlign: "center",
-    color: "#a8a29e", // stone-400
+    color: colors.textMuted, // stone-400
     fontWeight: "300",
     marginBottom: 2,
   },
   totals: {
     marginTop: 24,
     fontSize: 12,
-    color: "#a8a29e",
+    color: colors.textMuted,
     fontWeight: "300",
     textAlign: "center",
   },

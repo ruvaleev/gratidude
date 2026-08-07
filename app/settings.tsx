@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import ExportDataButton from "@/components/export-data-button";
 import {
   SettingsSection,
@@ -119,7 +120,7 @@ export default function SettingsScreen() {
             <Link href="/playground" asChild>
               <Pressable style={styles.devRow} testID="playgroundLink">
                 <Text style={styles.devText}>Песочница клумбы</Text>
-                <Ionicons name="chevron-forward" size={18} color="#a8a29e" />
+                <Ionicons name="chevron-forward" size={18} color={colors.textMuted} />
               </Pressable>
             </Link>
           </SettingsSection>
@@ -132,7 +133,7 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fafaf9", // stone-50
+    backgroundColor: colors.background, // stone-50
   },
   content: {
     padding: 20,
@@ -150,19 +151,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingVertical: 8,
     borderRadius: 8,
-    backgroundColor: "rgba(231, 229, 228, 0.6)",
+    backgroundColor: colors.surfaceSunken,
   },
   localeButtonActive: {
-    backgroundColor: "#44403c", // stone-700
+    backgroundColor: colors.text, // stone-700
   },
   localeText: {
     fontSize: 12,
     letterSpacing: 3,
-    color: "#a8a29e",
+    color: colors.textMuted,
     fontWeight: "300",
   },
   localeTextActive: {
-    color: "#fafaf9",
+    color: colors.background,
     fontWeight: "500",
   },
   devRow: {
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
   },
   devText: {
     fontSize: 15,
-    color: "#44403c",
+    color: colors.text,
     fontWeight: "300",
   },
 });

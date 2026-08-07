@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import { SettingsSection, StepperRow, ToggleRow } from "@/components/settings/setting-row";
 import GardenBed from "@/garden/components/GardenBed";
 import { MAX_PLANTS, SEASON_FLOWERS } from "@/garden/config";
@@ -248,7 +249,7 @@ export default function PlaygroundScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fafaf9" },
+  container: { flex: 1, backgroundColor: colors.background },
   content: {
     padding: 20,
     paddingBottom: 48,
@@ -259,42 +260,42 @@ const styles = StyleSheet.create({
   stage: { alignItems: "center", gap: 14, marginBottom: 20 },
   tiles: { flexDirection: "row", alignItems: "flex-end", gap: 20 },
   tileBox: { alignItems: "center", gap: 6 },
-  tileLabel: { fontSize: 10, color: "#a8a29e" },
+  tileLabel: { fontSize: 10, color: colors.textMuted },
 
   readout: {
-    backgroundColor: "rgba(255,255,255,0.6)",
+    backgroundColor: colors.surfaceMuted,
     borderWidth: 1,
-    borderColor: "rgba(231, 229, 228, 0.8)",
+    borderColor: colors.border,
     borderRadius: 12,
     paddingVertical: 6,
     paddingHorizontal: 14,
     marginBottom: 24,
   },
   readoutRow: { flexDirection: "row", justifyContent: "space-between", paddingVertical: 3 },
-  readoutLabel: { fontSize: 12, color: "#a8a29e" },
-  readoutValue: { fontSize: 12, color: "#44403c", fontVariant: ["tabular-nums"] },
+  readoutLabel: { fontSize: 12, color: colors.textMuted },
+  readoutValue: { fontSize: 12, color: colors.text, fontVariant: ["tabular-nums"] },
 
   chips: { flexDirection: "row", flexWrap: "wrap", gap: 8, padding: 12 },
   chip: {
     paddingHorizontal: 12,
     paddingVertical: 7,
     borderRadius: 8,
-    backgroundColor: "rgba(231, 229, 228, 0.7)",
+    backgroundColor: colors.surfaceSunken,
   },
-  chipText: { fontSize: 13, color: "#44403c" },
+  chipText: { fontSize: 13, color: colors.text },
 
   segRow: { paddingHorizontal: 16, paddingVertical: 12, gap: 8 },
-  segLabel: { fontSize: 15, color: "#44403c", fontWeight: "300" },
+  segLabel: { fontSize: 15, color: colors.text, fontWeight: "300" },
   seg: { flexDirection: "row", gap: 6 },
   segButton: {
     paddingHorizontal: 12,
     paddingVertical: 7,
     borderRadius: 8,
-    backgroundColor: "rgba(231, 229, 228, 0.7)",
+    backgroundColor: colors.surfaceSunken,
   },
-  segButtonActive: { backgroundColor: "#44403c" },
-  segText: { fontSize: 13, color: "#78716c" },
-  segTextActive: { color: "#fafaf9", fontWeight: "500" },
+  segButtonActive: { backgroundColor: colors.text },
+  segText: { fontSize: 13, color: colors.textSubtle },
+  segTextActive: { color: colors.background, fontWeight: "500" },
 
-  note: { fontSize: 12, color: "#a8a29e", lineHeight: 17, paddingHorizontal: 4 },
+  note: { fontSize: 12, color: colors.textMuted, lineHeight: 17, paddingHorizontal: 4 },
 });
