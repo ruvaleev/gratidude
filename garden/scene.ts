@@ -5,6 +5,7 @@ import {
   MAX_SIZE_BONUS,
   MAX_SPARKS,
   PLANT_COLORS,
+  PLANT_VARIANTS,
   SEASON_FLOWERS,
 } from './config';
 import { randomForDate } from './random';
@@ -181,6 +182,7 @@ export function buildScene(
       stage: stageFor(ratio, isSeasonal),
       scale: clamp((0.55 + ratio * 0.25 + fill * 0.2 + sizeBonus) * depth, 0.4, 1.6),
       colorIndex: Math.floor(random() * PLANT_COLORS.length),
+      variant: Math.floor(random() * PLANT_VARIANTS),
       lean: (random() - 0.5) * 0.5,
     };
   });

@@ -8,7 +8,6 @@ import moment from "moment";
 import "moment/locale/ru";
 import { useState } from "react";
 import { ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const TILE_GAP = 10;
 
@@ -38,7 +37,7 @@ export default function WeekScreen() {
   const title = `${days[0].format("D MMM")} — ${days[6].format("D MMM")}`;
 
   return (
-    <SafeAreaView style={styles.container} edges={["top"]}>
+    <View style={styles.container}>
       <PeriodNav
         title={title}
         onPrevious={() => shift(-1)}
@@ -60,7 +59,7 @@ export default function WeekScreen() {
           ))}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

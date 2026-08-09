@@ -1,4 +1,4 @@
-import SettingsScreen from '@/app/settings';
+import SettingsScreen from '@/app/(tabs)/settings';
 import { fireEvent } from '@testing-library/react-native';
 import React from 'react';
 import { renderWithProviders } from './utils';

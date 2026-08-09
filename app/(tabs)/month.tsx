@@ -10,7 +10,6 @@ import "moment/locale/ru";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, Text, useWindowDimensions, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const COLUMNS = 7;
 const TILE_GAP = 6;
@@ -71,7 +70,7 @@ export default function MonthScreen() {
   const shift = (months: number) => setAnchor(anchor.clone().add(months, "month"));
 
   return (
-    <SafeAreaView style={styles.container} edges={["top"]}>
+    <View style={styles.container}>
       <PeriodNav
         title={anchor.clone().locale(locale).format("MMMM YYYY")}
         onPrevious={() => shift(-1)}
@@ -110,7 +109,7 @@ export default function MonthScreen() {
           })}
         </Text>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

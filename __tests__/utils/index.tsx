@@ -1,6 +1,7 @@
 import dateReducer from '@/store/slices/dateSlice';
 import gratitudesReducer from '@/store/slices/gratitudesSlice';
 import localeReducer from '@/store/slices/localeSlice';
+import playgroundReducer from '@/store/slices/playgroundSlice';
 import praisesReducer from '@/store/slices/praisesSlice';
 import settingsReducer from '@/store/slices/settingsSlice';
 import type { Entry } from '@/store/types';
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   date: dateReducer,
   locale: localeReducer,
   settings: settingsReducer,
+  playground: playgroundReducer,
 });
 
 /** Builds a stored entry without caring about the generated id/timestamp. */

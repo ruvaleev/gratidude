@@ -27,14 +27,26 @@ export function plantUnitFactor(count: number): number {
   return 0.2;
 }
 
+/**
+ * Blossom colours. Soft and slightly chalky rather than saturated: a bed shows
+ * several of these at once against dark soil, and pure hues start to buzz.
+ */
 export const PLANT_COLORS = [
-  '#E8859C',
-  '#EFB03B',
-  '#C88FD0',
-  '#E6685A',
-  '#7FB8D8',
-  '#F2E7A8',
+  '#EE8FA6',
+  '#F2B441',
+  '#C08FD8',
+  '#E8705F',
+  '#86BEDD',
+  '#F7EFCB',
+  '#F0A9C6',
+  '#9BC46A',
 ];
+
+/**
+ * How many plants share a stage. Which one a spec draws as lives in Plant.tsx;
+ * the scene only rolls the die, so a day always grows the same garden.
+ */
+export const PLANT_VARIANTS = 6;
 
 export const SOIL = { warm: '#9E7743', cool: '#7A746B', base: '#6B4E33', deep: '#4A3524' };
 export const STONE = { base: '#CFC3A8', light: '#E4DAC2', dark: '#A9997C' };

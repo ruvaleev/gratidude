@@ -14,11 +14,11 @@ import {
   setGoal,
   setTrackEnabled,
 } from "@/store/slices/settingsSlice";
+import ScreenTitle from "@/components/screen-title";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const LOCALES = ["en", "ru"];
 
@@ -35,8 +35,10 @@ export default function SettingsScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={["bottom"]}>
+    <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
+        <ScreenTitle title={t("settings.title")} testID="settingsBack" />
+
         <SettingsSection
           title={t("settings.tracksSection")}
           hint={bothTracksOn ? undefined : t("settings.lastTrackHint")}
@@ -116,17 +118,17 @@ export default function SettingsScreen() {
         {/* Development only — the workbench never ships to anyone's phone. */}
         {/*__DEV__ && ( */ /* temporary use it in any environment */
           true && ( /* temporary use it in any environment */
-          <SettingsSection title="Разработка">
+          <SettingsSection title={t("settings.devSection")}>
             <Link href="/playground" asChild>
               <Pressable style={styles.devRow} testID="playgroundLink">
-                <Text style={styles.devText}>Песочница клумбы</Text>
+                <Text style={styles.devText}>{t("settings.playgroundLink")}</Text>
                 <Ionicons name="chevron-forward" size={18} color={colors.textMuted} />
               </Pressable>
             </Link>
           </SettingsSection>
         )}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

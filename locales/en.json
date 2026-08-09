@@ -31,7 +31,27 @@
     "praisesLabel": "done",
     "gratitudesLabel": "noticed",
     "goalReached": "today's aim met",
-    "today": "today"
+    "today": "today",
+    "stages": {
+      "sprout": "sprouts",
+      "bud": "buds",
+      "flower": "flowers",
+      "seasonal": "flower of the month"
+    },
+    "flowers": {
+      "hellebore": "hellebore",
+      "snowdrop": "snowdrop",
+      "crocus": "crocus",
+      "tulip": "tulip",
+      "lilac": "lilac",
+      "peony": "peony",
+      "daisy": "daisy",
+      "sunflower": "sunflower",
+      "aster": "aster",
+      "chrysanthemum": "chrysanthemum",
+      "heather": "heather",
+      "poinsettia": "poinsettia"
+    }
   },
   "week": {
     "title": "Week"
@@ -57,6 +77,59 @@
     "languageSection": "Language",
     "dataSection": "Data",
     "decrease": "Decrease",
-    "increase": "Increase"
+    "increase": "Increase",
+    "devSection": "Development",
+    "playgroundLink": "Garden workbench"
+  },
+  "playground": {
+    "title": "Garden workbench",
+    "tileSmall": "tile 44",
+    "tileLarge": "same, large",
+    "readout": {
+      "praisePoints": "praise points",
+      "progress": "progress",
+      "light": "light",
+      "lightOff": "off",
+      "plants": "plants",
+      "onTile": "on the tile",
+      "sparks": "sparks",
+      "stages": "stages",
+      "seasonFlower": "flower of the month",
+      "none": "—"
+    },
+    "presetsSection": "Presets",
+    "presets": {
+      "empty": "Empty",
+      "sparse": "Sparse",
+      "usual": "Usual",
+      "goalMet": "Aim met",
+      "overflow": "Overflowing"
+    },
+    "tracks": {
+      "praises": "Self-praise",
+      "gratitudes": "Gratitudes"
+    },
+    "entries": "Entries a day",
+    "pointsSpread": "Points per entry",
+    "spreads": {
+      "off": "off",
+      "low": "all 1",
+      "mixed": "mixed",
+      "high": "all 3"
+    },
+    "pointsOffHint": "Points for praises are off — the way the app ships. A stage follows how full the day is: the whole bed grows together as the aim comes closer.",
+    "pointsOnHint": "Points for praises are on. Each plant's stage follows the points of its own entry, not how many entries the day holds: at «all 1» even a full bed stays sprouts.",
+    "goalsSection": "Daily aim",
+    "praisesGoal": "Praises a day",
+    "gratitudesGoal": "Gratitudes a day",
+    "goalsHint": "The bed counts as full once a day reaches this many points. The aim lives inside the workbench only and never touches the real settings.",
+    "seasonSection": "Flower of the month",
+    "seasonHint": "Every month has its own flower: it opens on the bed the day the aim is met. Tap to see any of them.",
+    "layoutSection": "Layout",
+    "layoutRow": "Day of the month",
+    "layoutHint": "Plant placement is tied to the date, so the same day always looks the same. Change the number to see other arrangements of the very same values.",
+    "decrease": "Fewer",
+    "increase": "More",
+    "note": "Plant proportions, limits and the palette live in garden/config.ts — edit there, Metro reloads the screen itself."
   }
 }

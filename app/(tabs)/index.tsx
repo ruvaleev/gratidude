@@ -2,7 +2,6 @@ import { colors } from "@/constants/theme";
 import DateForm from "@/components/date-form";
 import DayProgress from "@/components/day-progress";
 import GratitudeSection from "@/components/gratitude-section";
-import Header from "@/components/header";
 import PraisesSection from "@/components/praises-section";
 import GardenBed from "@/garden/components/GardenBed";
 import useGardenScene from "@/garden/useGardenScene";
@@ -19,7 +18,6 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const MAX_BED = 360;
 
@@ -102,8 +100,7 @@ export default function Index() {
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={["top"]}>
-      <Header />
+    <View style={styles.container}>
       <View ref={viewportRef} style={styles.viewport} collapsable={false}>
         <ScrollView
           ref={scrollRef}
@@ -136,7 +133,7 @@ export default function Index() {
           </View>
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

@@ -29,6 +29,11 @@ export interface PlantSpec {
   scale: number;
   /** Index into the palette; keeps a plant the same colour between renders. */
   colorIndex: number;
+  /**
+   * 0..5 — which plant of its stage this one is (a tuft of leaves or a seedling,
+   * a daisy or a bell). Stage says how grown a plant is, this says what it is.
+   */
+  variant: number;
   /** Small per-plant tilt in radians, so a bed never looks stamped. */
   lean: number;
 }

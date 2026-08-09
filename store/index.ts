@@ -15,6 +15,7 @@ import {
 import dateReducer from './slices/dateSlice';
 import gratitudesReducer from './slices/gratitudesSlice';
 import localeReducer from './slices/localeSlice';
+import playgroundReducer from './slices/playgroundSlice';
 import praisesReducer from './slices/praisesSlice';
 import settingsReducer from './slices/settingsSlice';
 
@@ -38,6 +39,7 @@ const persistConfig = {
   key: 'root',
   storage: isServerRender ? serverStorage : AsyncStorage,
   version: DATA_VERSION,
+  // `playground` is left out on purpose: dev dials should not survive a restart.
   whitelist: ['gratitudes', 'praises', 'date', 'locale', 'settings'],
   migrate: (state: any, currentVersion: number) => {
     if (state && state._persist && state._persist.version === currentVersion) {
@@ -55,6 +57,7 @@ export const rootReducer = combineReducers({
   date: dateReducer,
   locale: localeReducer,
   settings: settingsReducer,
+  playground: playgroundReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
