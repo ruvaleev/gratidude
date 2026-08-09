@@ -1,4 +1,5 @@
 import useLocale from "@/hooks/useLocal";
+import "@/i18n";
 import { Stack } from "expo-router";
 import * as Updates from "expo-updates";
 import { useEffect } from "react";
@@ -9,6 +10,7 @@ import { persistor, store } from "../store";
 
 function RootLayoutContent() {
   useLocale();
+  // useAutoBackup();
 
   useEffect(() => {
     async function onFetchUpdateAsync() {
@@ -34,11 +36,9 @@ function RootLayoutContent() {
   }, []);
 
   return (
-    <Stack>
-      <Stack.Screen 
-        name="index" 
-        options={{ headerShown: false }} 
-      />
+    // Every route lives in the tab group, so the two bars never leave the screen.
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="(tabs)" />
     </Stack>
   );
 }

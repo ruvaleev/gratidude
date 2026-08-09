@@ -5,7 +5,11 @@ import { addGratitude } from "@/store/slices/gratitudesSlice";
 import { useTranslation } from "react-i18next";
 import Section from "./section";
 
-export default function GratitudeSection() {
+export default function GratitudeSection({
+  onFieldFocus,
+}: {
+  onFieldFocus?: (offsetY: number) => void;
+}) {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
@@ -23,6 +27,7 @@ export default function GratitudeSection() {
       sectionId="gratitudes"
       onSubmit={handleGratitudeSubmit}
       buttonText={t("index.thank")}
+      onFieldFocus={onFieldFocus}
     />
   );
 }

@@ -43,3 +43,5 @@ app-example
 /android
 
 /notes
+.playwright-mcp/
+suggested_designs/

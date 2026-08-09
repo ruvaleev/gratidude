@@ -1,10 +1,11 @@
 import selectGratitudesByDate from '../../../store/selectors/selectGratitudesByDate';
+import { entry } from '../../utils';
 
 describe('selectGratitudesByDate', () => {
   const dateOne = '01.01.2026';
   const dateTwo = '02.01.2026';
-  const gratitudeOne = 'Gratitude One';
-  const gratitudeTwo = 'Gratitude Two';
+  const gratitudeOne = entry('Gratitude One');
+  const gratitudeTwo = entry('Gratitude Two');
 
   describe('when gratitude presented in gratitudes slice', () => {
     const state = {

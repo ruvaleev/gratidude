@@ -1,12 +1,18 @@
-import BurgerMenu from "@/components/header/burger-menu";
+import { colors } from "@/constants/theme";
 import InspirationSection from "@/components/header/inspiration-section";
-import { StyleSheet, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Link } from "expo-router";
+import { Pressable, StyleSheet, View } from "react-native";
 
 export default function Header() {
   return (
     <View style={styles.header}>
       <InspirationSection />
-      <BurgerMenu />
+      <Link href="/settings" asChild>
+        <Pressable style={styles.settingsButton} testID="settingsButton">
+          <Ionicons name="settings-outline" size={22} color={colors.textMuted} />
+        </Pressable>
+      </Link>
     </View>
   );
 }
@@ -14,9 +20,15 @@ export default function Header() {
 const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
-    justifyContent: "flex-end",
+    alignItems: "center",
     paddingHorizontal: 16,
     paddingTop: 16,
     zIndex: 100,
+  },
+  settingsButton: {
+    position: "absolute",
+    right: 8,
+    top: 20,
+    padding: 8,
   },
 });
